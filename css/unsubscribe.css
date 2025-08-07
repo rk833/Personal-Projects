@@ -1,0 +1,174 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #e74c3c;
+    --text-light: #ecf0f1;
+    --success-color: #27ae60;
+    --error-color: #c0392b;
+    --info-color: #3498db;
+}
+
+/* Unsubscribe Page Styles */
+.unsubscribe-wrapper {
+    min-height: calc(100vh - 300px); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    margin-top: 76px;
+    background: linear-gradient(135deg, var(--text-light), #fff);
+}
+
+.unsubscribe-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.unsubscribe-content {
+    text-align: center;
+    background: linear-gradient(135deg, #fff, var(--text-light));
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(44, 62, 80, 0.15);
+    border: 1px solid rgba(44, 62, 80, 0.1);
+}
+
+.unsubscribe-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.unsubscribe-icon:hover {
+    transform: scale(1.1);
+}
+
+.unsubscribe-icon.success {
+    color: var(--success-color);
+}
+
+.unsubscribe-icon.error {
+    color: var(--error-color);
+}
+
+.unsubscribe-icon.info {
+    color: var(--info-color);
+}
+
+.unsubscribe-content h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.unsubscribe-content p {
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.unsubscribe-actions {
+    margin-top: 2rem;
+}
+
+.unsubscribe-actions .btn {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+}
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body.dark-mode .unsubscribe-wrapper {
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    }
+
+    body.dark-mode .unsubscribe-content {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    }
+
+    body.dark-mode .unsubscribe-content h1 {
+        color: var(--text-light);
+    }
+
+    body.dark-mode .unsubscribe-content p {
+        color: var(--text-light);
+        opacity: 0.9;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .unsubscribe-wrapper {
+        min-height: calc(100vh - 250px);
+        margin-top: 60px;
+    }
+
+    .unsubscribe-content {
+        padding: 2rem;
+    }
+    
+    .unsubscribe-icon {
+        font-size: 3rem;
+    }
+    
+    .unsubscribe-content h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    .unsubscribe-wrapper {
+        padding: 1rem;
+    }
+
+    .unsubscribe-content {
+        padding: 1.5rem;
+    }
+}

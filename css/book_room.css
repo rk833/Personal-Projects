@@ -1,0 +1,344 @@
+/* General Layout */
+.content-spacing {
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+/* Room Card Styles */
+.card {
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+/* Room Images */
+.room-images {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.room-images img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.room-images img:hover {
+    transform: scale(1.02);
+}
+
+/* Room Details */
+.room-details {
+    padding-top: 1.5rem;
+}
+
+.room-details h4 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.room-details p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Features Section */
+.features {
+    margin: 1.5rem 0;
+}
+
+.features h5 {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.badge {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Booking Form */
+.form-label {
+    color: #555;
+    font-weight: 500;
+}
+
+.form-control, .form-select {
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb), 0.15);
+}
+
+/* Pricing Information */
+.pricing-info {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.pricing-info h5 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+    border: none;
+    color: var(--primary-color);
+}
+
+/* Currency Dropdown */
+.dropdown-toggle {
+    border-radius: 8px;
+    padding: 8px 15px;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.3);
+}
+
+/* Popup Styles */
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.close-popup {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.popup-title {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.policy {
+    margin-bottom: 1.5rem;
+}
+
+.policy h6 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.policy ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+}
+
+.policy li {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .content-spacing {
+        padding-top: 80px;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .room-images img {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-spacing {
+        padding-top: 60px;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+    }
+    
+    .room-images img {
+        height: 300px;
+    }
+    
+    .popup {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    #back-to-top {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 0.9rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .room-images img {
+        height: 250px;
+    }
+    
+    .badge {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .pricing-info {
+        padding: 1rem;
+    }
+    
+    #back-to-top {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 0.8rem;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+
+.fade-target {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  
+  .fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card,
+  .popup {
+    position: relative;
+    z-index: 1;
+  }
+  
+/*discount alerts  */
+.pricing-info .discount-alert {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.pricing-info .alert-success {
+    margin-bottom: 1rem;
+    background-color: rgba(40, 167, 69, 0.1);
+    border-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
+  

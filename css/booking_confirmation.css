@@ -1,0 +1,249 @@
+/* General Layout */
+.booking-confirmation-spacing {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    min-height: 100vh;
+}
+
+/* Main Card */
+.card {
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card-body {
+    padding: 2.5rem;
+}
+
+/* Success Icon Animation */
+.fa-check-circle {
+    color: #28a745;
+    animation: scaleIn 0.5s ease-out;
+    text-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Typography */
+h2 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+h4 {
+    color: var(--primary-color);
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.text-muted {
+    color: #6c757d !important;
+    font-size: 1.1rem;
+}
+
+/* Booking Details Cards */
+.booking-details .card {
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+.booking-details .card.bg-light {
+    background: linear-gradient(145deg, #f8f9fa, #f1f3f5);
+}
+
+.booking-details .card-body {
+    padding: 1.8rem;
+}
+
+.booking-details .card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+
+/* Row Styling */
+.row.mb-2 {
+    padding: 0.6rem 0;
+    transition: all 0.3s ease;
+}
+
+.row.mb-2:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.03);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+}
+
+/* Strong Text */
+strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Price Breakdown */
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-end {
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), rgba(var(--primary-color-rgb), 0.9));
+    border: none;
+    box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border: none;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--primary-color);
+    background: transparent;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .booking-confirmation-spacing {
+        padding-top: 80px;
+    }
+    
+    .card-body {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-confirmation-spacing {
+        padding-top: 60px;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .btn {
+        padding: 0.7rem 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .fa-check-circle {
+        font-size: 3rem !important;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.8rem;
+    }
+    
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+.fade-target {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  
+  .fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+ 
+  .card,
+  .booking-details {
+    position: relative;
+    z-index: 1;
+  }

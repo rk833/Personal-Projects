@@ -1,0 +1,1203 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #e74c3c;
+    --text-light: #ecf0f1;
+}
+
+/* Login Page Styles */
+.card {
+    margin-top: 100px;
+    background: linear-gradient(135deg, var(--text-light), #fff) !important;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(44, 62, 80, 0.15) !important;
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+.card-body {
+    padding: 2.5rem;
+}
+
+.container .mb-0{
+    color: var(--primary-color) !important;
+}
+
+h2 {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    color: var(--secondary-color) !important;
+    font-weight: 500;
+}
+
+.input-group-text {
+    background: var(--primary-color) !important;
+    color: var(--text-light);
+    border: none;
+}
+
+/* Fix password input visibility */
+input[type="password"],
+input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    border: none;
+    padding: 12px 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color) ) !important;
+    transform: translateY(-2px);
+}
+
+a {
+    color: var(--accent-color) !important ;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color) !important;
+    text-decoration: none;
+}
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2) !important;
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3) !important;
+}
+
+/* Mobile Devices (320px - 480px) */
+@media screen and (max-width: 480px) {
+    .card {
+        margin-top: 50px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .input-group-text {
+        padding: 0.5rem 0.75rem;
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .text-center p {
+        font-size: 0.9rem;
+    }
+
+    input[type="password"],
+input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Tablets (481px - 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .card {
+        margin-top: 75px;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .col-md-6 {
+        width: 90%;
+    }
+
+    input[type="password"],
+input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Medium Devices (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .card {
+        max-width: 600px;
+        margin: 100px auto;
+    }
+
+    .card-body {
+        padding: 3rem;
+    }
+
+    .col-md-6 {
+        width: 85%;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .form-label {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .form-control {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    .input-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+
+    .text-center {
+        margin-top: 2rem;
+    }
+
+    .text-center p {
+        font-size: 1.1rem;
+    }
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+    .form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+    .form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Large Devices (1025px and above) */
+@media screen and (min-width: 1025px) {
+    .card {
+        max-width: 650px;
+        margin: 120px auto;
+        transform: translateY(0);
+    }
+
+    .card-body {
+        padding: 3.5rem;
+    }
+
+    .col-md-6 {
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        margin-bottom: 3rem;
+    }
+
+    .form-label {
+        font-size: 1.15rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .form-control {
+        padding: 0.85rem 1rem;
+        font-size: 1.05rem;
+    }
+
+    .input-group {
+        margin-bottom: 2rem;
+    }
+
+    .btn-primary {
+        padding: 14px 32px;
+        font-size: 1.15rem;
+        margin-top: 1.5rem;
+    }
+
+    .text-center {
+        margin-top: 2.5rem;
+    }
+
+    .text-center p {
+        font-size: 1.15rem;
+    }
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Enhanced Visual Effects */
+@media (hover: hover) {
+    .btn-primary {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary:after {
+        display: none;
+    }
+
+    .form-control:focus {
+        transform: none;
+    }
+
+    a:hover {
+        transform: none;
+    }
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+    }
+
+    .card-body {
+        color: var(--text-light);
+    }
+
+    h2 {
+        color: var(--text-light);
+    }
+
+    .form-label {
+        color: var(--text-light);
+    }
+
+    .form-control {
+        background-color: #fff !important;
+        color: #000 !important;
+        border-color: rgba(255, 255, 255, 0.2);
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+
+    .form-control:focus {
+        background-color: #fff !important;
+        color: #000 !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+
+    .form-control::placeholder {
+        color: #6c757d !important;
+    }
+
+    .text-center p {
+        color: var(--text-light);
+    }
+
+    a {
+        color: var(--accent-color);
+    }
+
+    a:hover {
+        color: var(--text-light);
+    }
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Animations for Form Elements */
+
+.card {
+    animation: none !important;
+}
+
+.form-control, .btn-primary {
+    transition: none !important;
+}
+
+/* Back to Top Button Responsive */
+@media screen and (max-width: 768px) {
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .card {
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    
+    .form-control {
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+        color: #000 !important;
+    }
+    
+    .btn-primary {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    
+    .container {
+        min-height: -webkit-fill-available;
+    }
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Performance optimizations */
+.card {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.btn-primary:after {
+    will-change: transform;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Large Screens and Desktops (1400px and up) */
+@media screen and (min-width: 1400px) {
+    .card {
+        max-width: 700px;
+        margin: 140px auto;
+    }
+
+    .card-body {
+        padding: 4rem;
+    }
+
+    h2 {
+        font-size: 2.6rem;
+    }
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Laptops and Small Desktops (1200px - 1399px) */
+@media screen and (min-width: 1200px) and (max-width: 1399px) {
+    .card {
+        max-width: 650px;
+        margin: 120px auto;
+    }
+
+    .card-body {
+        padding: 3.5rem;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+    }
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control {
+        border: 1px solid rgba(44, 62, 80, 0.2) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        transition: none !important;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+        font-size: 16px !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control::placeholder {
+        color: #6c757d !important;
+        opacity: 1;
+    }
+}
+
+/* Tablets and iPads (768px - 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .card {
+        max-width: 600px;
+        margin: 100px auto;
+    }
+
+    .card-body {
+        padding: 3rem;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    .form-label {
+        font-size: 1.1rem;
+    }
+
+    .form-control {
+        padding: 0.75rem 1rem;
+    }
+
+    .btn-primary {
+        padding: 12px 28px;
+        font-size: 1.1rem;
+    }
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control {
+        border: 1px solid rgba(44, 62, 80, 0.2) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        transition: none !important;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+        font-size: 16px !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control::placeholder {
+        color: #6c757d !important;
+        opacity: 1;
+    }
+}
+
+/* Medium Tablets (601px - 767px) */
+@media screen and (min-width: 601px) and (max-width: 767px) {
+    .card {
+        margin: 80px 20px;
+    }
+
+    .card-body {
+        padding: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .form-control {
+        padding: 0.7rem 0.9rem;
+    }
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control {
+        border: 1px solid rgba(44, 62, 80, 0.2) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        transition: none !important;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+        font-size: 16px !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control::placeholder {
+        color: #6c757d !important;
+        opacity: 1;
+    }
+}
+
+/* Large Mobile Devices (481px - 600px) */
+@media screen and (min-width: 481px) and (max-width: 600px) {
+    .card {
+        margin: 60px 15px;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .form-label {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        padding: 11px 24px;
+        font-size: 1rem;
+    } 
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control {
+        border: 1px solid rgba(44, 62, 80, 0.2) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        transition: none !important;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+        font-size: 16px !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control::placeholder {
+        color: #6c757d !important;
+        opacity: 1;
+    }
+}
+
+/* Extra Small Devices (320px and below) */
+@media screen and (max-width: 320px) {
+    .card {
+        margin: 30px 10px;
+    }
+
+    .card-body {
+        padding: 1.2rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .form-label {
+        font-size: 0.85rem;
+    }
+
+    .form-control {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .btn-primary {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    .text-center p {
+        font-size: 0.85rem;
+    } 
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control {
+        border: 1px solid rgba(44, 62, 80, 0.2) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        transition: none !important;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+        font-size: 16px !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+        color: #000 !important;
+        background-color: #fff !important;
+        opacity: 1 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+    
+    .form-control::placeholder {
+        color: #6c757d !important;
+        opacity: 1;
+    }
+}
+
+/* Portrait and Landscape Orientations */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .card {
+        margin: 20px auto;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .card {
+        box-shadow: 0 8px 30px rgba(44, 62, 80, 0.12); 
+    }
+
+    .input-group-text {
+        background: var(--primary-color) !important;
+        color: var(--text-light);
+        border: none;
+    }
+    input[type="password"],
+    input[type="text"] {
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control {
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    transition: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 16px !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15) !important;
+    color: #000 !important;
+    background-color: #fff !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #000 !important;
+}
+
+.form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1;
+}
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+    .btn-primary:hover {
+        transform: none;
+    }
+
+    .form-control:focus {
+        transform: none;
+    }
+}
+
+.form-check {
+    color: #000 !important;
+    font-weight: 500 !important;
+    font-size: 1.2rem !important;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.form-check-input {
+    position: absolute;
+    margin-top: .3rem;
+    margin-left: -1.5rem;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+

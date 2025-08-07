@@ -1,0 +1,349 @@
+/* General Layout */
+.profile-container {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff) !important;
+    min-height: 100vh;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: linear-gradient(145deg, #ffffff, #f8f9fa) !important;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.card h4{
+    color: var(--primary-color) !important;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Profile Card */
+.text-center .fa-user-circle {
+    font-size: 5rem;
+    color: var(--primary-color) !important;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.text-center .fa-user-circle:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.card h4 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.text-muted {
+    color: #6c757d !important;
+    font-size: 0.9rem;
+}
+
+/* Form Styles */
+.card-title {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    display: block !important;
+    opacity: 1 !important;
+}
+
+.card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color) !important;
+    border-radius: 2px;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--primary-color) !important;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    display: block !important;
+    opacity: 1 !important;
+}
+
+.form-control {
+    border: 2px solid #e0e0e0 !important;
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+    transition: all 0.3s ease;
+    background-color: #ffffff !important;
+    color: #2c3e50 !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb), 0.15);
+    background-color: #ffffff;
+}
+
+.form-control[readonly] {
+    background-color: #e9ecef !important;
+    opacity: 0.8;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-group .form-label {
+    display: block !important;
+    width: 100%;
+    color: var(--primary-color) !important;
+}
+
+.input-group .btn {
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+    padding: 0.8rem 1.2rem;
+}
+
+.btn-outline-secondary {
+    border: 2px solid #e0e0e0;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white;
+}
+
+/* Submit Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), rgba(var(--primary-color-rgb), 0.9)) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 500;
+    border-radius: 12px;
+    padding: 0.8rem 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.2) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.3) !important;
+}
+
+/* Alert Styles */
+.alert {
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+/* Mobile Devices (320px - 480px) */
+@media screen and (max-width: 480px) {
+    .profile-container {
+        padding-top: 60px;
+        padding-bottom: 30px;
+    }
+
+    .card {
+        margin-bottom: 1.5rem;
+        border-radius: 15px;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .text-center .fa-user-circle {
+        font-size: 4rem;
+    }
+
+    .card h4 {
+        font-size: 1.3rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .alert {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tablets (481px - 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .profile-container {
+        padding-top: 80px;
+    }
+
+    .card {
+        margin-bottom: 1.75rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-control {
+        padding: 0.7rem 0.9rem;
+    }
+
+    .btn-primary {
+        padding: 0.7rem 1.75rem;
+    }
+}
+
+/* Medium Devices (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .profile-container {
+        padding-top: 90px;
+    }
+
+    .card {
+        margin-bottom: 2rem;
+    }
+
+    .card-body {
+        padding: 1.75rem;
+    }
+}
+
+/* Large Devices (1025px and above) */
+@media screen and (min-width: 1025px) {
+
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .profile-container {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+    }
+
+    .card {
+        background: linear-gradient(145deg, #34495e, #2c3e50);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h4,
+    .card-title,
+    .form-label {
+        color: var(--primary-color) !important;
+    }
+
+    .text-muted {
+        color: #a0aec0 !important;
+    }
+
+    .form-control {
+        background-color: #ffffff !important;
+        color: #2c3e50 !important;
+    }
+
+    .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-control[readonly] {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+}
+
+.card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Form Validation Styling */
+.was-validated .form-control:valid {
+    border-color: #2ecc71;
+}
+
+.was-validated .form-control:invalid {
+    border-color: var(--accent-color);
+}
+
+/* Alert Animations */
+.alert {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Back to Top Button Responsive */
+@media screen and (max-width: 768px) {
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+

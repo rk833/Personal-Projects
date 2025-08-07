@@ -1,0 +1,352 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #e74c3c;
+    --text-light: #ecf0f1;
+}
+
+/* Main Container Styles */
+.reviews-wrapper {
+    background: linear-gradient(135deg, var(--text-light), #fff);
+    min-height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+}
+
+.reviews-container {
+    flex: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Empty State Styles */
+.no-reviews {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #fff, var(--text-light));
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    margin: 2rem 0;
+}
+
+.no-reviews i {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.no-reviews p {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.no-reviews .btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.no-reviews .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+}
+
+/* Title Styles */
+.reviews-container .reviews-title {
+    max-width: 1400px;
+    padding: 2rem;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.reviews-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+}
+
+/* Filter Styles */
+.filters {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-select {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.8rem 1rem;
+    border: 2px solid rgba(44, 62, 80, 0.2);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15);
+    outline: none;
+}
+
+/* Reviews Grid */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Review Card Styles */
+.review-card {
+    background: linear-gradient(135deg, #fff, var(--text-light));
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(44, 62, 80, 0.1);
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(44, 62, 80, 0.15);
+}
+
+.hotel-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.rating {
+    margin-bottom: 1rem;
+}
+
+.rating .fas.fa-star {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    margin-right: 2px;
+    filter: drop-shadow(0 2px 4px rgba(255,215,0,0.2));
+}
+
+.review-text {
+    color: var(--secondary-color);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.review-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.reviewer {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.date {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+/* Pagination Styles */
+.pagination {
+    margin-top: 3rem;
+    gap: 0.5rem;
+}
+
+.page-item .page-link {
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    color: var(--secondary-color);
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+}
+
+.page-item .page-link:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.page-item.active .page-link:hover {
+    background: #0056b3;
+}
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 480px) {
+    .reviews-wrapper {
+        padding: 1rem 0;
+        margin-top: 40px;
+    }
+
+    .reviews-container {
+        padding: 0 10px;
+    }
+
+    .reviews-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .review-card {
+        padding: 1rem;
+    }
+
+    .hotel-name {
+        font-size: 1.1rem;
+    }
+
+    .review-text {
+        font-size: 0.9rem;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet Styles */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .review-card {
+        padding: 1.25rem;
+    }
+}
+
+/* Animation Enhancements */
+.review-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover Effects */
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(44, 62, 80, 0.15);
+}
+
+/* Pagination Enhancements */
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.page-link {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body.dark-mode {
+        background: var(--secondary-color);
+    }
+
+    body.dark-mode .review-card {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--text-light);
+    }
+    
+    body.dark-mode .hotel-name,
+    body.dark-mode .reviewer {
+        color: #fff;
+    }
+    
+    body.dark-mode .review-text {
+        color: #e1e1e1;
+    }
+    
+    body.dark-mode .date {
+        color: #aaa;
+    }
+    
+    body.dark-mode .form-select {
+        background: var(--secondary-color);
+        color: var(--text-light);
+    }
+}

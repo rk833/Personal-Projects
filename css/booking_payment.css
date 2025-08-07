@@ -1,0 +1,333 @@
+/* General Layout */
+.booking-payment-spacing {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-color: #f8f9fa;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), rgba(var(--primary-color-rgb), 0.8));
+    color: white;
+    border-radius: 20px 20px 0 0 !important;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+}
+
+.card-body {
+    padding: 2rem;
+    background-color: white;
+}
+
+/* Typography */
+h4 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+h5 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Form Styles */
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    background-color: #f8f9fa;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-rgb), 0.15);
+    background-color: white;
+}
+
+/* Payment Methods Section */
+.payment-methods-section {
+    margin: 2rem 0;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.payment-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-check {
+    padding: 0;
+    margin: 0;
+}
+
+.payment-method-content {
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 1.2rem;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.form-check-input:checked + .form-check-label .payment-method-content {
+    border-color: var(--primary-color);
+    background: linear-gradient(145deg, #ffffff, rgba(var(--primary-color-rgb), 0.05));
+    box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.payment-info {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.payment-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.payment-cards {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.card-logo, .payment-logo {
+    height: 30px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.card-logo:hover, .payment-logo:hover {
+    transform: scale(1.1);
+}
+
+/* Coming Soon Badge */
+.coming-soon-badge {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    color: #6c757d;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Disabled Payment Methods */
+.form-check.disabled .payment-method-content {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Submit Button */
+.btn-primary {
+    padding: 1.2rem;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background: linear-gradient(135deg, var(--primary-color), rgba(var(--primary-color-rgb), 0.9));
+    border: none;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(var(--primary-color-rgb), 0.4);
+}
+
+/* Price Details */
+.d-flex.justify-content-between {
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.d-flex.justify-content-between:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.03);
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+}
+
+/* Dividers */
+hr {
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+    height: 2px;
+    opacity: 0.1;
+}
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .booking-payment-spacing {
+        padding-top: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-payment-spacing {
+        padding-top: 60px;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .payment-method-content {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .payment-methods-section {
+        padding: 1.5rem;
+    }
+    
+    .payment-name {
+        font-size: 1rem;
+    }
+    
+    .card-logo, .payment-logo {
+        height: 25px;
+    }
+    
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+
+.fade-target {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  
+  .fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card,
+  .payment-methods-section,
+  .payment-method-content {
+    position: relative;
+    z-index: 1;
+  }
+
+.form-check-label a {
+    
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.form-check-label a:hover {
+    color: var(--accent-color);
+}
+
+/* Terms and Conditions Styling */
+#credit-card-details .form-check {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+}
+
+#credit-card-details .form-check:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(var(--primary-color-rgb), 0.03);
+}
+
+#credit-card-details .form-check-input:checked + .form-check-label {
+    color: var(--primary-color);
+}
+
+#credit-card-details .form-check-label {
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+
+#credit-card-details .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+

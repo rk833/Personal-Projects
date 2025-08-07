@@ -1,0 +1,401 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #e74c3c;
+    --text-light: #ecf0f1;
+
+}
+
+.about-us {
+    padding-top: 2px; 
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh; 
+    color: #fff; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+/* Hero Heading */
+.hero-heading {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Roboto Slab', serif;
+    margin: 0;
+}
+
+/* Our Story Section */
+.our-story {
+    padding-bottom: 60px;
+    background-color: #f9f9f9; 
+    border-top: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+/* Heading */
+.our-story .heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Image Section */
+.our-story .image-section img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.our-story .image-section .col-md-4 {
+    display: flex;
+    justify-content: center;
+}
+
+/* Founder/Co-founder */
+.meet-team {
+    background-color: #f8f9fa; 
+    padding-top: 20px; 
+    padding-bottom: 20px;  
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.meet-team h2 {
+    font-size: 2rem;  
+    margin-bottom: 20px;  
+    color: #000;  
+}
+
+.meet-team p {
+    font-size: 1rem;  
+    color: #000 !important;  
+    margin-bottom: 40px;  
+    line-height: 1.6; 
+}
+
+.meet-team-text {
+    padding: 0.5rem 1rem !important;
+}
+
+
+.founder {
+    text-align: center;  
+    margin-bottom: 30px;  
+    
+}
+
+.founder img {
+    width: 100%; 
+    height: 300px;  
+    object-fit: cover;  
+    border-radius: 8px;  
+}
+
+.founder h5 {
+    font-size: 1.25rem; 
+    color: #000;  
+    margin-top: 15px;  
+    text-align: center;
+}
+
+.founder p.title {
+    font-size: 1rem;  
+    color: var(--accent-color);  
+    margin-bottom: 10px; 
+    text-align: center;  
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* Belief section */
+
+.title{
+    text-align: left;
+    font-size: 2rem;
+}
+
+.text{
+    text-align: left;
+}
+
+/* Review */
+.review-section {
+    border-top: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    background: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.review-summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.platforms {
+    display: flex;
+    gap: 20px;
+}
+
+.platform {
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.platform:hover .logo {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.platform .logo {
+    width: 40px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.platform .rating {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.overall-rating {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.overall-rating .rating {
+    font-size: 36px;
+    color: var(--accent-color);
+}
+
+.featured-reviews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
+    margin-top: 30px;
+}
+
+.review-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    flex: 0 1 calc(33.333% - 20px); 
+    max-width: calc(33.333% - 20px); 
+}
+
+.review-text {
+    font-style: italic;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.reviewer {
+    font-weight: bold;
+    color: var(--accent-color);
+    text-align: right;
+}
+
+.read-more-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.read-more-link:hover {
+    background: var(--secondary-color);
+}
+
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+  @media (max-width: 768px) {
+    .review-box {
+        flex: 0 1 calc(50% - 20px); 
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .review-box {
+        flex: 0 1 100%; 
+        max-width: 100%;
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 992px) {
+    .hero-section {
+        height: 70vh;
+    }
+
+    .hero-heading {
+        font-size: 2.5rem;
+    }
+
+    .our-story .heading {
+        font-size: 2rem;
+    }
+
+    .founder img {
+        height: 250px;
+    }
+
+    .platforms {
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero-section {
+        height: 50vh;
+    }
+
+    .hero-heading {
+        font-size: 2rem;
+    }
+
+    .our-story .heading {
+        font-size: 1.8rem;
+    }
+
+    .meet-team .card {
+        margin-bottom: 2rem;
+    }
+
+    .review-summary {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .platforms {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .platform {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .hero-heading {
+        font-size: 1.5rem;
+    }
+
+    .our-story .heading {
+        font-size: 1.5rem;
+    }
+
+    .founder img {
+        height: 200px;
+    }
+
+    .review-box {
+        padding: 15px;
+    }
+
+    .platform {
+        flex: 0 0 100%;
+    }
+
+    .overall-rating .rating {
+        font-size: 28px;
+    }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    .hero-section {
+        height: -webkit-fill-available;
+    }
+}
+
+/*card transitions */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
+}
+
+
+.fade-target {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  
+  .fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+ 
+  .hero-section,
+  .our-story,
+  .meet-team,
+  .our-beliefs,
+  .review-section {
+    position: relative;
+    z-index: 1;
+  }
+  
+

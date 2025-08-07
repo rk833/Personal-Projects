@@ -1,0 +1,1095 @@
+/* Search Container Styles */
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #e74c3c;
+    --text-light: #ecf0f1;
+    --text-dark: #2c3e50;
+    --background-light: #f8f9fa;
+}
+
+.search-container {
+    padding: 40px 20px;
+    background-color: var(--background-light) !important;
+    min-height: auto;
+}
+
+.search-header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.search-header h1 {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: var(--accent-color) !important;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.search-header h2 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--text-dark) !important;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.search-header p {
+    color: var(--secondary-color) !important;
+    font-size: 0.95rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(44, 62, 80, 0.1);
+}
+
+
+.search-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+.search-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dark) !important;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.search-input {
+    padding: 12px;
+    border: 1px solid rgba(44, 62, 80, 0.2) !important;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-dark);
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+}
+
+.search-group small {
+    font-size: 0.75rem;
+    color: var(--secondary-color) !important;
+    margin-top: 4px;
+}
+
+.search-button {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.search-button:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(44, 62, 80, 0.2);
+}
+
+/* Form Styles */
+.form-label {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+}
+
+.form-select, .form-control {
+    border: 2px solid #e1e5ea !important;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.form-select:focus, .form-control:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
+    background-color: white !important;
+}
+
+.text-muted {
+    font-size: 0.8rem;
+}
+
+/* Search Button */
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color)) !important;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2) !important;
+}
+
+/* Room Cards Styling */
+.room-details {
+    padding-top: 20px;
+}
+
+.card-rooms-card {
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.card-rooms-card .card-img-top {
+    border-radius: 10px 10px 0 0 !important;
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+
+}
+
+.card-rooms-card .card-body {
+    padding: 20px;
+}
+
+.card-rooms-card .card-title {
+    color: #333 !important;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+/* Features Badges */
+.features .badge {
+    background: #f8f9fa !important;
+    color: #444 !important;
+    padding: 8px 12px !important;
+    margin-right: 8px !important;
+    margin-bottom: 8px !important;
+    border: 1px solid #eee !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+}
+
+.features .badge i {
+    margin-right: 5px !important;
+}
+
+/* Price Styling */
+.price-breakdown {
+    margin: 15px 0 !important;
+}
+
+.price-breakdown .text-muted {
+    font-size: 0.9rem;
+}
+
+.price-breakdown .badge.bg-success {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+}
+
+.text-primary {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.text-primary small {
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+/* Book Now Button */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Pagination Styles */
+.pagination {
+    margin: 2rem 0;
+}
+
+.page-link {
+    color: var(--primary-color) !important;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin: 0 0.3rem;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color)) !important;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color)) !important;
+    border: none;
+}
+
+/* Facilities Section */
+.room-facilities {
+    background: linear-gradient(145deg, #f8f9fa, #ffffff) !important;
+    padding: 3rem 0;
+    margin-top: 2rem;
+}
+
+.subtitle {
+    color: var(--accent-color);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.main-title {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.title-underline {
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color)) !important;
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+.facility-list {
+    list-style: none;
+    padding: 0;
+}
+
+.facility-list li {
+    padding: 1rem 1.5rem;
+    color: var(--primary-color) !important;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+}
+
+.facility-list li:hover {
+    transform: translateX(10px);
+    background: linear-gradient(45deg, rgba(44, 62, 80, 0.05), rgba(231, 76, 60, 0.05)) !important;
+}
+
+.facility-list .icon {
+    margin-right: 1.5rem !important;
+    font-size: 1.5rem !important;
+    color: var(--accent-color) !important;
+}
+
+/* Why Choose Us Section */
+.why-choose-us {
+    background: linear-gradient(145deg, #f8f9fa, #ffffff) !important;
+    position: relative;
+}
+
+.feature-card {
+    background: white !important;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+
+
+.feature-card .icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem !important;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color)) !important;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-card .icon-wrapper i {
+    font-size: 2rem !important;
+    color: white !important;
+}
+
+.feature-card h3 {
+    color: var(--primary-color) !important;
+    font-size: 1.3rem !important;
+    margin-bottom: 1rem !important;
+    font-weight: 600 !important;
+}
+
+.feature-card p {
+    color: var(--text-dark) !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 0 !important;
+    opacity: 0.8 !important;
+}
+
+/* Container styles */
+.container-destination {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* Featured hotels section */
+  .featured-hotels {
+    padding: 40px 0;
+    background: #fff;
+  }
+  
+  .destinations__title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #333;
+  }
+  
+  .destinations__divider {
+    width: 100px;
+    height: 4px;
+    background-color: var(--accent-color);
+    margin: 1rem auto 1rem;
+    border-radius: 2px;
+  }
+  
+  .destinations__subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 60px;
+  }
+  
+  /* Slider styles */
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    margin: 0 -20px;
+  }
+  
+  .slider {
+    display: flex;
+    transition: transform 0.3s ease-out;
+    cursor: grab;
+    padding: 0 20px;
+  }
+  
+  .slider:active {
+    cursor: grabbing;
+  }
+  
+  /* Slide styles */
+  .slide {
+    flex: 0 0 calc(40% - 40px);
+    margin: 0 20px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .slide__category {
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .slide__image {
+    position: relative;
+    padding-bottom: 66.67%; 
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .slide__image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .slide__title {
+    font-size: 24px;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .slide__description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .slide__link {
+    font-size: 14px;
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--primary-color);
+    transition: all 0.3s ease;
+  }
+  
+  .slide__link:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+  }
+  
+  .slider-container::-webkit-scrollbar {
+    display: none; 
+  }
+  
+  .slider-container {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+  }
+
+
+/* Back to Top Button */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.2);
+    transition: all 0.3s ease;
+}
+
+#back-to-top:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.3);
+}
+
+
+/* Mobile First Media Queries */
+
+/* Small devices (phones, up to 576px) */
+@media (max-width: 576px) {
+    /* Hero Section */
+    .hero-section {
+        height: 80vh;
+        padding: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: var(--h1-size-mobile);
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-content p {
+        font-size: var(--p-size-mobile);
+        padding: 0 10px;
+        margin-bottom: 0.8rem;
+    }
+
+    .welcome-text {
+        font-size: 1.2rem;
+    }
+
+    .explore-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* Slider Section */
+    .slide {
+        flex: 0 0 85%;
+        margin: 0 10px;
+    }
+
+      .slider-container {
+        padding-right: 15px;
+    }
+    .slider {
+      padding: 0 15px;
+      margin: 0 -15px;
+  }
+      .destinations__title {
+        font-size: 1.5rem;
+    }
+
+    .destinations__subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+
+    /* Experience Section */
+    .experience-images {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+
+    .experience-text {
+        font-size: 1.2rem;
+        padding: 8px 0;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Newsletter Section */
+    .newsletter-form .input-group {
+      display: flex;
+      flex-direction: row !important;
+  }
+
+  .newsletter-form input {
+      flex: 1;
+      width: auto !important;
+      border-radius: 4px 0 0 4px !important;
+  }
+
+  .btn-subscribe {
+      width: auto !important;
+      align-items: center;
+      border-radius: 0 4px 4px 0 !important;
+  }
+}
+
+/* Medium devices (tablets, 577px to 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .hero-content h1 {
+        font-size: var(--h1-size-tablet);
+    }
+
+    .slide {
+        flex: 0 0 calc(50% - 30px);
+    }
+      .slide {
+        flex: 0 0 50%; 
+        margin-right: 30px;
+    }
+
+    .slider-container {
+      padding-right: 15px;
+  }
+
+    .slider {
+        padding: 0 15px;
+        margin: 0 -15px;
+    }
+    
+
+    .experience-images {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .newsletter-content {
+        padding: 0 30px;
+    }
+}
+
+/* Large devices (tablets landscape, 769px to 992px) */
+@media (min-width: 769px) and (max-width: 992px) {
+    .slide {
+        flex: 0 0 calc(50% - 30px);
+    }
+
+    .experience-images {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Newsletter Subscription */
+  .newsletter-section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+  }
+
+  .newsletter-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .newsletter-form .input-group {
+    display: flex;
+    gap: 0;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    border-radius: 4px 0 0 4px !important;
+    border: 1px solid #ddd;
+    padding: 12px;
+    height: auto;
+  }
+
+  .btn-subscribe {
+    border-radius: 0 4px 4px 0 !important;
+    padding: 12px 25px;
+    white-space: nowrap;
+  }
+
+  }
+
+/* Touch Device Specific Styles */
+@media (hover: none) {
+    /* Slider touch improvements */
+    .slider {
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .slide {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Experience section touch improvements */
+    .experience-text {
+        top: 85%;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 0;
+    }
+
+    .experience:active .experience-text {
+        top: 70%;
+    }
+
+    .experience:active {
+        transform: scale(0.98);
+    }
+
+    .btn-subscribe:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Smooth Scrolling for all devices */
+* {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+/* Touch Optimizations */
+.slider {
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Newsletter Form Touch Improvements */
+.newsletter-form input,
+.btn-subscribe {
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: manipulation;
+}
+
+/* Back to Top Button Touch Area */
+#back-to-top {
+    padding: 15px;
+    touch-action: manipulation;
+}
+/* slider and slide */
+.slider, .slide {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Loading State for Images */
+.slide__image img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.slide__image img.loaded {
+    opacity: 1;
+}
+
+/* Loading States and Animations */
+.fade-target {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-target.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Back to Top Button Responsiveness */
+@media (max-width: 576px) {
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 15px;
+        right: 15px;
+    }
+    .newsletter-form .input-group {
+      display: flex;
+      flex-direction: row !important;
+  }
+
+  .newsletter-form input {
+      flex: 1;
+      width: auto !important;
+      border-radius: 4px 0 0 4px !important;
+  }
+
+  .btn-subscribe {
+      width: auto !important;
+      border-radius: 0 4px 4px 0 !important;
+  }
+}
+
+/* Smooth Scrolling on All Devices */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Print Media Query */
+@media print {
+    .hero-section {
+        height: auto;
+    }
+
+    .explore-btn,
+    .newsletter-section,
+    #back-to-top {
+        display: none;
+    }
+}
+
+/*Responsive Styles */
+
+/* Search Form Container */
+@media (max-width: 768px) {
+    .search-form-container {
+        padding: 15px;
+    }
+
+    .search-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-group {
+        width: 100%;
+    }
+
+    .search-button {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .search-header h1 {
+        font-size: 0.8rem;
+    }
+
+    .search-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .search-header p {
+        font-size: 0.9rem;
+        padding: 0 15px;
+    }
+}
+
+/* Room Cards Responsiveness */
+@media (max-width: 992px) {
+    .room-details .col-md-4 {
+        width: 50%;
+    }
+
+    .card-rooms-card {
+        margin-bottom: 20px;
+    }
+
+    .card-rooms-card .card-img-top {
+        height: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .room-details .col-md-4 {
+        width: 100%;
+    }
+
+    .card-rooms-card {
+        margin: 0 10px 20px;
+    }
+
+    .features .badge {
+        font-size: 0.7rem;
+        padding: 5px 8px;
+        margin: 2px;
+    }
+
+    .price-breakdown h4 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Facilities Section */
+@media (max-width: 768px) {
+    .room-facilities {
+        padding: 30px 0;
+    }
+
+    .facility-list {
+        padding: 0 10px;
+    }
+
+    .facility-list li {
+        font-size: 0.85rem;
+        padding: 12px;
+        margin: 5px 0;
+    }
+
+    .facility-list .icon {
+        margin-right: 10px !important;
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Why Choose Us Section */
+@media (max-width: 992px) {
+    .why-choose-us .col-lg-3 {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+
+    .feature-card {
+        height: 100%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .why-choose-us .col-lg-3 {
+        width: 100%;
+    }
+
+    .feature-card .icon-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.1rem !important;
+    }
+}
+
+/* Pagination */
+@media (max-width: 576px) {
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .page-link {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Currency Dropdown */
+@media (max-width: 576px) {
+    .dropdown .btn-outline-secondary {
+        font-size: 0.9rem;
+        padding: 8px;
+        height: 40px;
+    }
+
+    .dropdown-menu {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
+
+/* Back to Top Button */
+@media (max-width: 576px) {
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* Date Inputs */
+@media (max-width: 576px) {
+    input[type="date"] {
+        font-size: 0.9rem;
+    }
+
+    .search-group small {
+        font-size: 0.7rem;
+    }
+}
+
+/* Alert Messages */
+@media (max-width: 576px) {
+    .alert {
+        margin: 10px;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Results Count */
+@media (max-width: 576px) {
+    .text-center.mt-3 {
+        font-size: 0.8rem;
+        margin: 15px 0;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 375px) {
+    .search-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .card-rooms-card .card-title {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    .facility-list li {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}
+
+/* Loading States */
+.fade-target {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Touch Optimizations */
+@media (hover: none) {
+    .btn-primary,
+    .page-link,
+    .dropdown-item,
+    .facility-list li {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .search-input,
+    select,
+    .btn {
+        font-size: 16px !important; /* Prevent iOS zoom */
+    }
+}
+
+/* Print Styles */
+@media print {
+    .search-form-container,
+    .why-choose-us,
+    #back-to-top,
+    .pagination {
+        display: none;
+    }
+
+    .room-details {
+        break-inside: avoid;
+    }
+}
+
+
+  
+
