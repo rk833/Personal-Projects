@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% block title %}Edit Booking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+    .edit-booking-container {
+        
+        padding: 2rem 0;
+        min-height: calc(100vh - 76px);
+    }
+    
+    .booking-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--text-light);
+        border-radius: 15px 15px 0 0 !important;
+        padding: 1.5rem;
+    }
+    
+    .booking-details {
+        border-left: 4px solid var(--accent-color);
+        padding-left: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .form-control {
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+        border-color: var(--accent-color);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-outline-secondary {
+        border: 2px solid var(--secondary-color);
+        color: var(--secondary-color);
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-secondary:hover {
+        background: var(--secondary-color);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .price-details {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-top: 1.5rem;
+    }
+    
+    .price-details p {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .final-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        border-top: 2px solid #dee2e6;
+        padding-top: 0.5rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="edit-booking-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card booking-card">
+                    <div class="card-header">
+                        <h3 class="mb-0">Edit Booking</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="booking-details">
+                            <h5>{{ booking.hotel_name }} - {{ booking.type_name }}</h5>
+                            <p class="text-muted mb-0">Booking Reference: WH-{{ booking.booking_id }}</p>
+                        </div>
+                        
+                        <form method="POST" id="edit-booking-form">
+                            {{ form.csrf_token }}
+                            <input type="hidden" id="booking_id" value="{{ booking.booking_id }}">
+                            
+                            <div class="mb-4">
+                                {{ form.check_in.label(class="form-label") }}
+                                {{ form.check_in(class="form-control datepicker", min=today, max=max_date) }}
+                            </div>
+                            
+                            <div class="mb-4">
+                                {{ form.check_out.label(class="form-label") }}
+                                {{ form.check_out(class="form-control datepicker", min=today) }}
+                            </div>
+                            
+                            <div class="mb-4">
+                                {{ form.num_guests.label(class="form-label") }}
+                                <select name="num_guests" id="num_guests" class="form-control">
+                                    {% for i in range(1, booking.max_guests + 1) %}
+                                        <option value="{{ i }}" {% if i == booking.num_guests %}selected{% endif %}>
+                                            {{ i }} Guest{{ 's' if i > 1 }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <!-- Price Details Section -->
+                            <div class="price-details" id="price-details">
+                                <h5 class="mb-3">Price Details</h5>
+                                <p>
+                                    <span>Base Price per Night:</span>
+                                    <span id="base-price">-</span>
+                                </p>
+                                <p>
+                                    <span>Number of Nights:</span>
+                                    <span id="num-nights">-</span>
+                                </p>
+                                <p>
+                                    <span>Total Base Price:</span>
+                                    <span id="total-base-price">-</span>
+                                </p>
+                                <p>
+                                    <span>Discount Rate:</span>
+                                    <span id="discount-rate">-</span>
+                                </p>
+                                <p>
+                                    <span>Discount Amount:</span>
+                                    <span id="discount-amount">-</span>
+                                </p>
+                                <p class="final-price">
+                                    <span>Final Price:</span>
+                                    <span id="final-price">-</span>
+                                </p>
+                            </div>
+                            
+                            <div class="d-grid gap-3 mt-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-check me-2"></i>Update Booking
+                                </button>
+                                <a href="{{ url_for('my_bookings') }}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-times me-2"></i>Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const checkInPicker = flatpickr("#check_in", {
+        minDate: "{{ today }}",
+        maxDate: "{{ max_date }}",
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "F j, Y",
+        disableMobile: "true",
+        onChange: function(selectedDates, dateStr) {
+            // Update check-out min date
+            const minCheckOut = new Date(selectedDates[0]);
+            minCheckOut.setDate(minCheckOut.getDate() + 1);
+            
+            // Set max date to 30 days after check-in
+            const maxCheckOut = new Date(selectedDates[0]);
+            maxCheckOut.setDate(maxCheckOut.getDate() + 30);
+            
+            // Update check-out picker
+            checkOutPicker.set('minDate', minCheckOut);
+            checkOutPicker.set('maxDate', maxCheckOut);
+            
+            // Clear check-out date if it's invalid
+            const currentCheckOut = checkOutPicker.selectedDates[0];
+            if (currentCheckOut && (currentCheckOut <= selectedDates[0] || currentCheckOut > maxCheckOut)) {
+                checkOutPicker.clear();
+            }
+        }
+    });
+
+    const checkOutPicker = flatpickr("#check_out", {
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "F j, Y",
+        disableMobile: "true",
+        onChange: function(selectedDates) {
+            if (checkInPicker.selectedDates[0] && selectedDates[0]) {
+                calculateEditPrice();
+            }
+        }
+    });
+
+    // Initialize with current values
+    if (checkInPicker.selectedDates[0]) {
+        const maxCheckOut = new Date(checkInPicker.selectedDates[0]);
+        maxCheckOut.setDate(maxCheckOut.getDate() + 30);
+        checkOutPicker.set('maxDate', maxCheckOut);
+    }
+
+    // Calculate initial price
+    calculateEditPrice();
+});
+</script>
+<script src="{{ url_for('static', filename='js/edit_booking.js') }}"></script>
+{% endblock %}

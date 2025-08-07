@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/403.css') }}">
+
+{% extends "base.html" %} {% block title %}Server Error{% endblock %} {% block
+content %}
+<!-- Error Container -->
+<div class="container error-403-container text-center py-5">
+  <div class="error-page">
+    <h1 class="display-1">500</h1>
+    <i class="fas fa-exclamation-triangle fa-5x text-danger mb-4"></i>
+    <h2 class="mb-4">Internal Server Error</h2>
+    <p class="lead mb-4">
+      Something went wrong on our end. Please try again later.
+    </p>
+    <div class="buttons">
+      <a href="{{ url_for('index') }}" class="btn btn-primary me-2">
+        <i class="fas fa-home"></i> Go Home
+      </a>
+      <button onclick="history.back()" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Go Back
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

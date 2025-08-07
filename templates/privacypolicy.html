@@ -1,0 +1,137 @@
+
+{% extends 'base.html' %} {% block title %}Privacy Policy - World Hotels{%
+endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/privacypolicy.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Privacy Policy Container -->
+<div class="pp-container py-5 mt-5">
+  <h1 class="pp-heading text-center mb-4">Privacy Policy</h1>
+  <p class="lead">
+    At World Hotels, we are committed to protecting your privacy across our UK
+    hotel network. This Privacy Policy outlines how we collect, use, and
+    safeguard your personal information.
+  </p>
+
+  <h3 class="section-title mt-4">1. Information We Collect</h3>
+  <p>
+    We collect information necessary for hotel bookings and service improvement:
+  </p>
+  <ul>
+    <li>
+      <strong>Booking Information:</strong>
+      <ul>
+        <li>Personal details (name, email, phone number)</li>
+        <li>Check-in/check-out dates</li>
+        <li>Room preferences and guest numbers</li>
+        <li>Special requests or requirements</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Account Information:</strong>
+      <ul>
+        <li>Login credentials</li>
+        <li>Booking history</li>
+        <li>Preferred currency settings</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Payment Information:</strong> Processed securely through
+      third-party payment gateways for room bookings and cancellation charges.
+    </li>
+  </ul>
+
+  <h3 class="section-title mt-4">2. How We Use Your Information</h3>
+  <ul>
+    <li>Process and manage hotel bookings</li>
+    <li>
+      Calculate and apply appropriate seasonal rates and advance booking
+      discounts
+    </li>
+    <li>Handle booking modifications and cancellations</li>
+    <li>Send booking confirmations and receipts</li>
+    <li>Process applicable cancellation charges</li>
+    <li>
+      Maintain booking records for the maximum 3-month advance booking period
+    </li>
+  </ul>
+
+  <h3 class="section-title mt-4">3. Data Retention</h3>
+  <p >We retain your booking information for:</p>
+  <ul >
+    <li>Active bookings: Until completion of your stay</li>
+    <li>Booking history: For financial and legal compliance</li>
+    <li>Account information: Until account deletion request</li>
+  </ul>
+
+  <h3 class="section-title mt-4">4. Data Security</h3>
+  <ul >
+    <li>Secure encryption for all booking transactions</li>
+    <li>Protected access to booking management systems</li>
+    <li>Regular security audits of our booking platform</li>
+    <li>
+      Secure handling of advance booking discounts and cancellation charges
+    </li>
+  </ul>
+
+  <h3 class="section-title mt-4">5. Information Sharing</h3>
+  <p>We share your information only with:</p>
+  <ul>
+    <li>The specific hotel where you've made a booking</li>
+    <li>Payment processing partners</li>
+    <li>Legal authorities when required by law</li>
+  </ul>
+
+  <h3 class="section-title mt-4">6. Your Rights</h3>
+  <p >You have the right to:</p>
+  <ul>
+    <li>Access your booking information</li>
+    <li>Modify your personal details</li>
+    <li>Cancel bookings (subject to our cancellation policy)</li>
+    <li>Request deletion of your account</li>
+    <li>Opt-out of marketing communications</li>
+  </ul>
+
+  <h3 class="section-title mt-4">7. Contact Information</h3>
+  <p>For privacy-related queries:</p>
+  <ul>
+    <li>Email: khadkaridesha@gmail.com</li>
+    <li>Phone: +44 (0) 123 456 7890</li>
+    <li>Address: World Hotels Head Office, London, UK</li>
+  </ul>
+</div>
+
+<!-- Frequently Asked Questions -->
+<div class="section">
+  <h3 class="section-title">Frequently Asked Questions</h3>
+  <div class="faq">
+    <div class="faq-question">
+      How do you handle booking information?
+    </div>
+    <div class="faq-answer">
+      We securely process booking information to manage reservations, apply
+      appropriate rates and discounts, and ensure smooth check-in/check-out
+      processes.
+    </div>
+  </div>
+  <div class="faq">
+    <div class="faq-question">
+      How long do you keep my booking data?
+    </div>
+    <div class="faq-answer">
+      We retain booking information for the duration of your stay and maintain
+      records as required for legal and financial compliance.
+    </div>
+  </div>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" title="Go to top">↑</button>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/privacypolicy.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,266 @@
+<!-- templates/admin/edit_rooms.html -->
+
+{% extends "admin/layout.html" %}
+
+{% block title %}Edit Room {{ room.room_number }}{% endblock %}
+
+{% block content %}
+<!-- Edit Room Container -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Edit Room {{ room.room_number }}</h1>
+            <p class="mb-0">{{ room.hotel_name }}</p>
+        </div>
+        <a href="{{ url_for('admin_hotel_rooms', hotel_id=room.hotel_id) }}" 
+           class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Rooms
+        </a>
+    </div>
+
+    <!-- Edit Room Form -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="row">
+                            <!-- Basic Information -->
+                            <div class="col-md-6 mb-3">
+                                <label for="room_number" class="form-label">Room Number *</label>
+                                <input type="text" class="form-control" id="room_number" 
+                                       name="room_number" value="{{ room.room_number }}" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="room_type_id" class="form-label">Room Type *</label>
+                                <select class="form-select" id="room_type_id" name="room_type_id" required>
+                                    <option value="">Select Room Type</option>
+                                    {% for type in room_types %}
+                                    <option value="{{ type.room_type_id }}" 
+                                            {% if type.room_type_id == room.room_type_id %}selected{% endif %}>
+                                        {{ type.type_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Pricing -->
+                            <div class="col-md-6 mb-3">
+                                <label for="base_price_peak" class="form-label">Peak Season Price (£) *</label>
+                                <input type="number" class="form-control" id="base_price_peak" 
+                                       name="base_price_peak" step="0.01" min="0" 
+                                       value="{{ "%.2f"|format(room.base_price_peak) }}" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="base_price_offpeak" class="form-label">Off-Peak Price (£) *</label>
+                                <input type="number" class="form-control" id="base_price_offpeak" 
+                                       name="base_price_offpeak" step="0.01" min="0" 
+                                       value="{{ "%.2f"|format(room.base_price_offpeak) }}" required>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-12 mb-3">
+                                <label for="description" class="form-label">Description *</label>
+                                <textarea class="form-control" id="description" name="description" 
+                                          rows="3" required>{{ room.description }}</textarea>
+                            </div>
+
+                            <!-- Features -->
+                            <div class="col-md-6 mb-3">
+                                <label for="features" class="form-label">Features</label>
+                                <input type="text" class="form-control" id="features" 
+                                       name="features" value="{{ room.features }}">
+                                <small class="text-muted">Separate features with commas</small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="floor_number" class="form-label">Floor Number *</label>
+                                <input type="number" class="form-control" id="floor_number" 
+                                       name="floor_number" value="{{ room.floor_number }}" required>
+                            </div>
+
+                            <!-- Status Controls -->
+                            <div class="col-md-6 mb-3">
+                                <label for="room_status" class="form-label">Room Status</label>
+                                <select class="form-select" id="room_status" name="room_status" 
+                                        {% if room.active_bookings > 0 %}disabled{% endif %}>
+                                    <option value="available" {% if room.room_status == 'available' %}selected{% endif %}>
+                                        Available
+                                    </option>
+                                    <option value="booked" {% if room.room_status == 'booked' %}selected{% endif %}>
+                                        Booked
+                                    </option>
+                                    <option value="maintenance" {% if room.room_status == 'maintenance' %}selected{% endif %}>
+                                        Under Maintenance
+                                    </option>
+                                    <option value="cleaning" {% if room.room_status == 'cleaning' %}selected{% endif %}>
+                                        Being Cleaned
+                                    </option>
+                                </select>
+                                {% if room.active_bookings > 0 %}
+                                <small class="text-muted">Status cannot be changed while room has active bookings</small>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check mt-4">
+                                    <input type="checkbox" class="form-check-input" id="is_active" 
+                                           name="is_active" {% if room.is_active %}checked{% endif %}>
+                                    <label class="form-check-label" for="is_active">
+                                        Room is active and available for booking
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Image Upload -->
+                            <div class="col-12 mb-3">
+                                <label for="main_image" class="form-label">Room Image</label>
+                                <input type="file" class="form-control" id="main_image" 
+                                       name="main_image" accept="image/*">
+                                <small class="text-muted">
+                                    Leave empty to keep current image. 
+                                    Supported formats: JPG, JPEG, PNG, GIF. Max size: 5MB
+                                </small>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Update Room
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Info Sidebar -->
+        <div class="col-lg-4">
+            <!-- Current Image Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Current Image</h6>
+                </div>
+                <div class="card-body text-center">
+                    {% if room.main_image %}
+                    <img src="{{ url_for('static', filename=room.main_image) }}" 
+                         alt="Room {{ room.room_number }}" class="img-fluid rounded">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='img/room-placeholder.jpg') }}" 
+                         alt="No Image" class="img-fluid rounded">
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Room Statistics Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Room Statistics</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <strong>Availability Status:</strong>
+                        {% if room.is_active %}
+                        <span class="badge bg-success">Active</span>
+                        {% else %}
+                        <span class="badge bg-danger">Inactive</span>
+                        {% endif %}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Current Status:</strong>
+                        {% if room.room_status == 'available' %}
+                            <span class="badge bg-success">Available</span>
+                        {% elif room.room_status == 'booked' %}
+                            <span class="badge bg-warning">Booked</span>
+                        {% elif room.room_status == 'maintenance' %}
+                            <span class="badge bg-danger">Under Maintenance</span>
+                        {% elif room.room_status == 'cleaning' %}
+                            <span class="badge bg-info">Being Cleaned</span>
+                        {% endif %}
+                    </div>
+                    <div class="mb-2">
+                        <strong>Total Bookings:</strong>
+                        <span class="badge bg-info">{{ room.booking_count }}</span>
+                    </div>
+                    {% if room.active_bookings > 0 %}
+                    <div class="mb-2">
+                        <strong>Active Bookings:</strong>
+                        <span class="badge bg-warning">{{ room.active_bookings }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+
+// Image preview for new uploads
+document.getElementById('main_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.querySelector('.card-body img');
+            preview.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Price validation
+document.getElementById('base_price_offpeak').addEventListener('input', function(e) {
+    const peakPrice = parseFloat(document.getElementById('base_price_peak').value);
+    const offpeakPrice = parseFloat(this.value);
+    
+    if (offpeakPrice > peakPrice) {
+        this.setCustomValidity('Off-peak price cannot be higher than peak price');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+
+// Add status change handler
+document.getElementById('room_status').addEventListener('change', function(e) {
+    const isActive = document.getElementById('is_active');
+    if (this.value === 'booked' || this.value === 'maintenance') {
+        isActive.checked = false;
+        isActive.disabled = true;
+    } else {
+        isActive.disabled = false;
+    }
+});
+
+// Check initial status
+window.addEventListener('load', function() {
+    const statusSelect = document.getElementById('room_status');
+    const isActive = document.getElementById('is_active');
+    if (statusSelect.value === 'booked' || statusSelect.value === 'maintenance') {
+        isActive.checked = false;
+        isActive.disabled = true;
+    }
+});
+</script>
+{% endblock %}

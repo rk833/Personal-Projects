@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% block title %}About Us - World Hotels{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/aboutus.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="about-us">
+    <!-- Hero Section -->
+    <section class="hero-section d-flex align-items-center">
+        <img 
+            src="{{ url_for('static', filename='images/about.png') }}" 
+            alt="Hero Background" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: 0.8;">
+        <div class="container text-center">
+            <h1 class="hero-heading">World Hotels, Your First Choice</h1>
+        </div>
+    </section>
+
+
+    <!-- Our Story Section -->
+    <section class="our-story py-5 fade-target">
+        <div class="container">
+            <h3 class="heading text-center mb-4" >Our Story</h3>
+            <div class="text-section mb-4">
+                <p>
+                    Our story began with a simple goal: to create a place where guests could feel at home. Founded decades ago as a small family-run hotel, we quickly became known for our warmth, comfort, and exceptional service. Nestled in the heart of the city, we provided a welcoming escape for travelers from all walks of life.
+                    Over the years, our passion for hospitality has grown, transforming us into a trusted name in the industry. While expanding our services, we've stayed true to our core values, ensuring every guest enjoys a memorable experience. We take pride in being a part of countless journeys, creating cherished memories that last a lifetime.<br><br>
+
+                    Travel with Purpose is World Hotels Environmental, Social and Governance (ESG) strategy to drive responsible travel and tourism globally. Through Travel with Purpose, we seek to create positive environmental and social impact across our operations, supply chain, and communities.
+                </p>
+            </div>
+            <div class="image-section row text-center fade-target">
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <img src="{{ url_for('static', filename='images/service.png') }}" alt="Service" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-sm-6 col-md-4 mb-4 ">
+                    <img src="{{ url_for('static', filename='images/quality.jpg') }}" alt="Quality" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <img src="{{ url_for('static', filename='images/hospitality.jpeg') }}" alt="Hospitality" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Meet the Team Section -->
+<section class="meet-team py-5 bg-light fade-target">
+    <div class="card shadow ">
+        <div class="card-body">
+            <div class="container text-center mb-4">
+                <h2>Founder/Co-founders</h2>
+                <p>We are more than just a hotel; we are a family committed to serving you.</p>
+            </div>
+            <div class="row text-center">
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <div class="card shadow">
+                        <div class="founder">
+                            <img src="{{ url_for('static', filename='images/Ratisha.jpg') }}" alt="founder 1" class="founder-img img-fluid mb-3">
+                            <h5>Ratisha Khadka</h5>
+                            <p>Founder</p>
+                            <p class="meet-team-text">Ratisha Khadka,the visionary founder of World Hotels, built a legacy of hospitality with warmth and dedication. Her mission to create memorable guest experiences laid the foundation for our success. Through her leadership, World Hotels continues to thrive as a trusted destination for travelers seeking comfort, quality, and exceptional service.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <div class="card shadow">
+                        <div class="founder">
+                            <img src="{{ url_for('static', filename='images/team1.jpg') }}" alt="Co-founder 1" class="founder-img img-fluid mb-3">
+                            <h5>David Jain</h5>
+                            <p>Co-founder</p>
+                            <p class="meet-team-text">David Jain,co-founder of World Hotels, infused creativity and care into the brand's foundation. His focus on guest satisfaction and personalized service remains central to our values. David's passion for excellence continues to inspire our team, ensuring every guest feels welcome, valued, and delighted by their stay with us.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <div class="card shadow">
+                        <div class="founder">
+                            <img src="{{ url_for('static', filename='images/team2.jpg') }}" alt="Co-founder 2" class="founder-img img-fluid mb-3">
+                            <h5 class="title t">Rahisha Khadka</h5>
+                            <p class="title">Co-founder</p>
+                            <p class="meet-team-text">Rahisha Khadka, co-founder of World Hotels, played a pivotal role in shaping its vision and growth. Combining innovation and a love for hospitality, she contributed to building a brand that prioritizes guest happiness. Her dedication ensures World Hotels maintains its reputation for outstanding service and unforgettable experiences across all locations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Our Beliefs Section with Card -->
+<section class="our-beliefs py-5 bg-light fade-target">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="title ">True to Our Beliefs</h2>
+            <p class="text">
+                At the heart of World Hotels is our brand promise, Every Moment Matters. More than our signature, it is how we do business and who we are at the core. We create memorable moments and company success by inspiring our team members with our core beliefs.
+            </p>
+        </div>
+
+        <div class="row">
+            <!-- Card 1 -->
+            <div class="col-sm-6 col-md-4 mb-4">
+                <div class="card ">
+                    <img src="{{ url_for('static', filename='images/memory.jpg') }}" class="card-img-top" alt="We Deliver">
+                    <div class="card-body">
+                        <h4 class="card-title">We deliver memorable moments every day, everywhere, every time.</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-sm-6 col-md-4 mb-4">
+                <div class="card ">
+                    <img src="{{ url_for('static', filename='images/beliefs2.jpeg') }}" class="card-img-top" alt="We Enjoy">
+                    <div class="card-body">
+                        <h4 class="card-title ">We enjoy serving with our "Yes I Can!" spirit.</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-sm-6 col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/beliefs3.jpg') }}" class="card-img-top" alt="We Grow">
+                    <div class="card-body">
+                        <h4 class="card-title ">We are many minds, with one mindset, driven by excellence.</h4>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Guest Reviews -->
+<section id="review-us" class="review-section fade-target" py-5 bg-light>
+    <div class="container">
+        <h2 class="title">Our Guest Reviews</h2>
+        <div class="review-summary">
+            <div class="platforms">
+                <a href="https://www.google.com" target="_blank" class="platform">
+                    <span class="rating">4.7</span>
+                    <img src="{{ url_for('static', filename='images/google.png') }}" alt="Google Logo" class="logo">
+                    <p>Google</p>
+                </a>
+                <a href="https://www.tripadvisor.com" target="_blank" class="platform">
+                    <span class="rating">4.5</span>
+                    <img src="{{ url_for('static', filename='images/tripadvisor.png') }}" alt="TripAdvisor Logo" class="logo">
+                    <p>TripAdvisor</p>
+                </a>
+                <a href="https://www.booking.com" target="_blank" class="platform">
+                    <span class="rating">4.4</span>
+                    <img src="{{ url_for('static', filename='images/booking.png') }}" alt="Booking Logo" class="logo">
+                    <p>Booking</p>
+                </a>
+                <a href="https://www.facebook.com" target="_blank" class="platform">
+                    <span class="rating">5.0</span>
+                    <img src="{{ url_for('static', filename='images/facebook.png') }}" alt="Facebook Logo" class="logo">
+                    <p>Facebook</p>
+                </a>
+            </div>
+            <div class="overall-rating ">
+                <h3>Overall Rating</h3>
+                <span class="rating">4.6</span>
+                <p class="review-count">Based on 1105 reviews</p>
+            </div>
+        </div>
+        <div class="featured-reviews ">
+            <div class="review-box ">
+                <p class="review-text">"Best views in World Hotels and nice rooms! Been here twice. Vino and Waruna were great in the dining room! Limited rooming, so don't wait too long to book."</p>
+                <p class="reviewer">– Dinesh W, 12/04/2024</p>
+            </div>
+            <div class="review-box">
+                <p class="review-text">"Vino and Chamil are excellent staff members. The hotel was very convenient and comfortable. The rooms were small but nice with a wonderful view."</p>
+                <p class="reviewer">– Scott S, 12/04/2024</p>
+            </div>
+            <div class="review-box ">
+                <p class="review-text">"The staff were really attentive and kind, and we had a gorgeous welcome gift on arrival for our honeymoon. Couldn't recommend this place more."</p>
+                <p class="reviewer">– Sherini S, 11/30/2024</p>
+            </div>
+            
+            <div class="review-box ">
+                <p class="review-text">"Good value for money hotel in good location and good hospitalityAll staff are good. Particular mention of JK and NareshChef arranged vegetarian food in short notice."</p>
+                <p class="reviewer">– Shubakanth KS, 12/02/2024</p>
+            </div>    
+            
+            <div class="review-box">
+                <p class="review-text">"It's nice place to stay. Staffs are cooperative . I liked how great the service was,will come back again"</p>
+                <p class="reviewer">– venkatesh pai, 11/28/2024</p>
+            </div> 
+
+            <div class="review-box">
+                <p class="review-text">"The hotel is outstanding, the location gives a fanatic view, what a way to start the day!! The staff is so friendly and will do their best to help. I cannot recommend it more"</p>
+                <p class="reviewer">– Julie Kassab, 11/28/2024</p>
+            </div> 
+
+
+        </div>
+        <a href="{{ url_for('reviews') }}" class="read-more-link">Read More Reviews</a>
+    </div>
+</section>
+
+</main>
+
+     <!-- Back to Top Button -->
+    <button id="back-to-top" title="Go to top">↑</button>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+   
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/aboutus.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,260 @@
+{% extends 'admin/layout.html' %}
+
+{% block content %}
+<!-- Special Requests Container -->
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Special Requests</h1>
+
+    <!-- Filters -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Filters</h6>
+        </div>
+        <div class="card-body">
+            <form method="get" class="form-inline">
+                <select name="status" class="form-control mr-2">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {% if selected_status == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="in_progress" {% if selected_status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                    <option value="completed" {% if selected_status == 'completed' %}selected{% endif %}>Completed</option>
+                    <option value="cancelled" {% if selected_status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                </select>
+                <select name="hotel_id" class="form-control mr-2">
+                    <option value="">All Hotels</option>
+                    {% for hotel in hotels %}
+                    <option value="{{ hotel.hotel_id }}" {% if selected_hotel|string == hotel.hotel_id|string %}selected{% endif %}>
+                        {{ hotel.hotel_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Special Requests List -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Special Requests</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="specialRequestsTable">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Hotel</th>
+                            <th>Guest</th>
+                            <th>Check-in</th>
+                            <th>Request</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in special_requests %}
+                        <tr>
+                            <td>{{ request.booking_id }}</td>
+                            <td>{{ request.hotel_name }}</td>
+                            <td>
+                                {{ request.guest_name }}<br>
+                                <small>{{ request.guest_email }}</small>
+                            </td>
+                            <td>{{ request.check_in_date }}</td>
+                            <td>{{ request.special_requests }}</td>
+                            <td>
+                                {% set status_colors = {
+                                    'pending': 'text-warning',
+                                    'in_progress': 'text-info',
+                                    'completed': 'text-success',
+                                    'cancelled': 'text-danger'
+                                } %}
+                                <span class="font-weight-bold {{ status_colors[request.special_request_status] }}">
+                                    {{ request.special_request_status|title }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-sm" 
+                                            onclick="viewRequest({{ request.booking_id }})">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-sm" 
+                                            onclick="openUpdateModal({{ request.booking_id }})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm" 
+                                            onclick="confirmDelete({{ request.booking_id }})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">View Special Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="viewModalContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Special Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="updateForm" method="post">
+                {{ form.csrf_token }}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        {{ form.status.label(class="form-label") }}
+                        {{ form.status(class="form-select") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.notes.label(class="form-label") }}
+                        {{ form.notes(class="form-control") }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this special request?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="deleteRequest()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- JavaScript -->
+<script>
+let currentBookingId = null;
+
+function viewRequest(bookingId) {
+    currentBookingId = bookingId;
+    const modal = new bootstrap.Modal(document.getElementById('viewModal'));
+    
+    fetch(`/admin/special-requests/${bookingId}/view`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.request) {
+                const request = data.request;
+                const content = `
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Guest Information</h6>
+                            <p><strong>Name:</strong> ${request.guest_name}</p>
+                            <p><strong>Email:</strong> ${request.guest_email}</p>
+                            <p><strong>Check-in:</strong> ${request.check_in_date}</p>
+                            <p><strong>Check-out:</strong> ${request.check_out_date}</p>
+                            <h6 class="card-subtitle mb-2 text-muted mt-4">Special Request</h6>
+                            <p>${request.special_requests}</p>
+                            <h6 class="card-subtitle mb-2 text-muted mt-4">Status Information</h6>
+                            <p><strong>Current Status:</strong> ${request.status}</p>
+                            <p><strong>Notes:</strong> ${request.notes || 'No notes added'}</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('viewModalContent').innerHTML = content;
+                modal.show();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function openUpdateModal(bookingId) {
+    currentBookingId = bookingId;
+    document.getElementById('updateForm').action = `/admin/special-requests/${bookingId}`;
+    const modal = new bootstrap.Modal(document.getElementById('updateModal'));
+    
+    fetch(`/admin/special-requests/get/${bookingId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('status').value = data.status;
+            document.getElementById('notes').value = data.notes;
+            modal.show();
+        });
+}
+
+function confirmDelete(bookingId) {
+    currentBookingId = bookingId;
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+}
+
+function deleteRequest() {
+    if (!currentBookingId) return;
+    
+    fetch(`/admin/special-requests/${currentBookingId}/delete`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token() }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error deleting request: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error deleting request');
+    });
+}
+
+// Initialize DataTable
+$(document).ready(function() {
+    $('#specialRequestsTable').DataTable({
+        "order": [[0, "desc"]],
+        "pageLength": 25
+    });
+});
+</script>
+{% endblock %} 

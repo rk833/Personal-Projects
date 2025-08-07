@@ -1,0 +1,390 @@
+<!-- templates/admin/dashboard.html -->
+
+{% extends "admin/layout.html" %} {% block title %}Dashboard{% endblock %} {%
+block content %}
+<!-- Dashboard Container -->
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a
+      href="{{ url_for('admin_reports') }}"
+      class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+    >
+      <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+    </a>
+  </div>
+
+ 
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form class="d-flex align-items-center" method="get">
+            <label class="me-3 mb-0">Date Range:</label>
+            <select name="range" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
+              <option value="7" {{ '7' == request.args.get('range', '30') and 'selected' }}>Last 7 Days</option>
+              <option value="30" {{ '30' == request.args.get('range', '30') and 'selected' }}>Last 30 Days</option>
+              <option value="90" {{ '90' == request.args.get('range', '30') and 'selected' }}>Last 90 Days</option>
+              <option value="365" {{ '365' == request.args.get('range', '30') and 'selected' }}>Last 365 Days</option>
+            </select>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics Cards Row -->
+  <div class="row">
+    <!-- Total Bookings Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card stat-card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div
+                class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+              >
+                Total Bookings
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                {{ stats.total_bookings }}
+              </div>
+              <div class="text-xs text-muted mt-1">
+                Active: {{ stats.active_bookings }} | Cancelled: {{
+                stats.cancelled_bookings }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Revenue Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card stat-card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div
+                class="text-xs font-weight-bold text-success text-uppercase mb-1"
+              >
+                Total Revenue
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                £{{ "%.2f"|format(stats.total_revenue|float) }}
+              </div>
+              <div class="text-xs text-muted mt-1">
+                Avg. Booking: £{{ "%.2f"|format(stats.avg_booking_value|float)
+                }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-pound-sign fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card stat-card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div
+                class="text-xs font-weight-bold text-info text-uppercase mb-1"
+              >
+                Total Customers
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                {{ stats.total_customers }}
+              </div>
+              <div class="text-xs text-muted mt-1">
+                Registered Users: {{ stats.total_users }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-users fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotels Card -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card stat-card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div
+                class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+              >
+                Total Hotels
+              </div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                {{ stats.total_hotels }}
+              </div>
+              <div class="text-xs text-muted mt-1">
+                Total Rooms: {{ stats.total_rooms }}
+              </div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-hotel fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Date Range Info -->
+  <div class="mb-4">
+    <small class="text-muted">
+      Showing data from {{ start_date.strftime('%Y-%m-%d') }} to {{
+      end_date.strftime('%Y-%m-%d') }}
+    </small>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="row">
+    <!-- Monthly Revenue Chart -->
+    <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+        <div
+          class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+        >
+          <h6 class="m-0 font-weight-bold text-primary">
+            Monthly Revenue Overview
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Room Occupancy Chart -->
+    <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Room Occupancy</h6>
+        </div>
+        <div class="card-body">
+          {% if occupancy_data and occupancy_data.labels %}
+            <div class="chart-pie">
+              <canvas id="occupancyChart"></canvas>
+            </div>
+            <div class="mt-4 text-center small">
+              {% for label in occupancy_data.labels %}
+                <span class="mr-2">
+                  <i class="fas fa-circle" style="color: {{ ['#4e73df', '#1cc88a', '#36b9cc'][loop.index0 % 3] }}"></i>
+                  {{ label }}
+                </span>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="text-center text-muted py-4">
+              <i class="fas fa-bed fa-3x mb-3"></i>
+              <p>No occupancy data available</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Recent Bookings -->
+    <div class="col-xl-8 col-lg-7">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Recent Bookings</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Guest</th>
+                  <th>Hotel</th>
+                  <th>Check In</th>
+                  <th>Check Out</th>
+                  <th>Booking Date</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for booking in recent_bookings %}
+                <tr>
+                  <td>{{ booking.booking_id }}</td>
+                  <td>{{ booking.guest_name }}</td>
+                  <td>{{ booking.hotel_name }}</td>
+                  <td>{{ booking.check_in_date.strftime('%Y-%m-%d') }}</td>
+                  <td>{{ booking.check_out_date.strftime('%Y-%m-%d') }}</td>
+                  <td>{{ booking.booking_date.strftime('%Y-%m-%d') }}</td>
+                  <td>
+                    <span
+                      class="badge bg-{{ 'success' if booking.status == 'confirmed' else 'danger' }}"
+                    >
+                      {{ booking.status }}
+                    </span>
+                  </td>
+                  <td>£{{ "%.2f"|format(booking.total_price|float) }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Hotels -->
+    <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">
+            Top Performing Hotels
+          </h6>
+        </div>
+        <div class="card-body">
+          {% for hotel in top_hotels %}
+          <div class="hotel-item mb-3">
+            <div class="d-flex justify-content-between">
+              <h6>{{ hotel.hotel_name }}</h6>
+              <span class="text-success"
+                >£{{ "%.2f"|format(hotel.revenue|float) }}</span
+              >
+            </div>
+            <div class="small text-muted mb-1">
+              Bookings: {{ hotel.booking_count }} | Rating: {{
+              "%.1f"|format(hotel.avg_rating|float) }} ⭐
+            </div>
+            <div class="progress" style="height: 5px">
+              <div
+                class="progress-bar bg-success"
+                role="progressbar"
+                style="width: {{ (hotel.revenue / top_hotels[0].revenue * 100)|round }}%"
+              ></div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  // Monthly Revenue Chart
+  const revenueChart = new Chart(
+      document.getElementById('revenueChart'),
+      {
+          type: 'line',
+          data: {
+              labels: {{ months|tojson }},
+              datasets: [{
+                  label: 'Monthly Revenue',
+                  data: {{ revenue_data|tojson }},
+                  borderColor: '#4e73df',
+                  backgroundColor: '#4e73df20',
+                  fill: true
+              }]
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  tooltip: {
+                      callbacks: {
+                          label: (item) => `£${item.formattedValue}`
+                      }
+                  }
+              }
+          }
+      }
+  );
+
+  // Prevent multiple chart initializations
+  let occupancyChart;
+
+  function initializeOccupancyChart() {
+      if (occupancyChart) {
+          occupancyChart.destroy();
+      }
+      
+      {% if occupancy_data and occupancy_data.labels %}
+      const ctx = document.getElementById('occupancyChart').getContext('2d');
+      occupancyChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+              labels: {{ occupancy_data.labels|tojson|safe }},
+              datasets: [{
+                  data: {{ occupancy_data.occupied|tojson|safe }},
+                  backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                  label: 'Occupied'
+              }, {
+                  data: {{ occupancy_data.available|tojson|safe }},
+                  backgroundColor: ['#eaecf4', '#eaecf4', '#eaecf4'],
+                  label: 'Available'
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      position: 'bottom',
+                      labels: {
+                          usePointStyle: true
+                      }
+                  },
+                  tooltip: {
+                      callbacks: {
+                          label: function(context) {
+                              const label = context.dataset.label || '';
+                              const value = context.parsed;
+                              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                              const percentage = Math.round((value / total) * 100);
+                              return `${label}: ${value} rooms (${percentage}%)`;
+                          }
+                      }
+                  }
+              },
+              cutout: '60%'
+          }
+      });
+      {% endif %}
+  }
+
+  // Initialize charts when DOM is ready
+  document.addEventListener('DOMContentLoaded', function() {
+      initializeOccupancyChart();
+  });
+</script>
+{% endblock %} {% block styles %}
+<style>
+  .stat-card .text-xs {
+    font-size: 0.7rem;
+  }
+  .hotel-item .small {
+    font-size: 0.8rem;
+  }
+  .chart-area,
+  .chart-pie {
+    position: relative;
+    height: 300px;
+    width: 100%;
+  }
+</style>
+{% endblock %}

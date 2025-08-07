@@ -1,0 +1,217 @@
+{% extends "base.html" %} {% block title %}My Bookings{% endblock %} {% block
+extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/my_bookings.css') }}"
+/>
+{% endblock %} {% block content %}
+<!-- My Bookings -->
+<div class="my-bookings-container py-4">
+  <div class="container my-bookings-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="mb-0">My Bookings</h2>
+      <div class="dropdown">
+        <button
+          class="btn btn-outline-secondary dropdown-toggle"
+          type="button"
+          id="currencyDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {{ currency_symbol }} {{ currency }}
+        </button>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="currencyDropdown"
+        >
+          {% for code, symbol in currencies.items() %}
+          <li>
+            <a
+              class="dropdown-item {% if currency == code %}active{% endif %}"
+              href="{{ url_for('set_currency', currency=code, next=request.path) }}"
+            >
+              {{ symbol }} {{ code }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- Booking Cards -->
+    <div class="row">
+      <div class="col-md-12">
+        {% if bookings %} {% for booking in bookings %}
+        <div class="card mb-3 booking-card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="card-title">
+                  {{ booking.hotel_name }} - {{ booking.type_name }}
+                </h5>
+                <div class="booking-details">
+                  <p class="mb-2">
+                    <span class="text-muted">Booking Reference:</span>
+                    <strong>WH-{{ booking.booking_id }}</strong>
+                  </p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="mb-1">
+                        <i class="fas fa-calendar-check text-muted me-2"></i>
+                        <span class="text-muted">Check In:</span><br />
+                        <strong
+                          >{{ booking.check_in_date.strftime('%d %B %Y')
+                          }}</strong
+                        >
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="mb-1">
+                        <i class="fas fa-calendar-times text-muted me-2"></i>
+                        <span class="text-muted">Check Out:</span><br />
+                        <strong
+                          >{{ booking.check_out_date.strftime('%d %B %Y')
+                          }}</strong
+                        >
+                      </p>
+                    </div>
+                  </div>
+                  <p class="mb-1">
+                    <i class="fas fa-users text-muted me-2"></i>
+                    <span class="text-muted">Guests:</span>
+                    <strong>{{ booking.num_guests }}</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-4 text-end">
+                <div class="booking-status mb-3">
+                  <span
+                    class="badge bg-{{ 
+                                        'success' if booking.status == 'confirmed' 
+                                        else 'danger' if booking.status == 'cancelled'
+                                        else 'secondary' 
+                                    }} px-3 py-2"
+                  >
+                    {{ booking.status|title }}
+                  </span>
+                </div>
+                <div class="price-info mb-3">
+                  <p class="mb-0 fs-5">
+                    <strong
+                      >{{ currency_symbol }}{{
+                      "%.2f"|format(booking.total_price) }}</strong
+                    >
+                  </p>
+                  {% if booking.applied_discount %}
+                  <small class="text-success">
+                    Saved {{ currency_symbol }}{{
+                    "%.2f"|format(booking.applied_discount) }}
+                  </small>
+                  {% endif %}
+                </div>
+                <div class="booking-actions">
+                  {% if booking.status == 'confirmed' %} {% if
+                  (booking.check_in_date - today).days > 0 %}
+                  <a
+                    href="{{ url_for('edit_booking', booking_id=booking.booking_id) }}"
+                    class="btn btn-primary btn-sm mb-2 me-2"
+                  >
+                    <i class="fas fa-edit me-1"></i> Edit
+                  </a>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm mb-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#cancelModal{{ booking.booking_id }}"
+                  >
+                    <i class="fas fa-times me-1"></i> Cancel
+                  </button>
+                  {% endif %}
+                  <a
+                    href="{{ url_for('booking_confirmation', booking_id=booking.booking_id) }}"
+                    class="btn btn-primary btn-sm"
+                  >
+                    <i class="fas fa-eye me-1"></i> View Details
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cancel Modal -->
+        <div
+          class="modal fade"
+          id="cancelModal{{ booking.booking_id }}"
+          tabindex="-1"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Cancel Booking</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to cancel this booking?</p>
+                {% set days_until = (booking.check_in_date - today).days %}
+                <div
+                  class="alert {{ 
+                                    'alert-success' if days_until > 60 
+                                    else 'alert-warning' if days_until > 30 
+                                    else 'alert-danger' 
+                                }} mb-0"
+                >
+                  {% if days_until > 60 %}
+                  <i class="fas fa-check-circle me-2"></i>Full refund available
+                  {% elif days_until > 30 %}
+                  <i class="fas fa-exclamation-triangle me-2"></i>50%
+                  cancellation charge applies {% else %}
+                  <i class="fas fa-times-circle me-2"></i>100% cancellation
+                  charge applies {% endif %}
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <form
+                  action="{{ url_for('cancel_booking', booking_id=booking.booking_id) }}"
+                  method="POST"
+                  style="display: inline"
+                >
+                  {{ form.csrf_token }}
+                  <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-check me-1"></i> Confirm Cancellation
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle me-2"></i>
+          You don't have any bookings yet.
+          <a href="{{ url_for('search') }}" class="alert-link"
+            >Start searching for rooms!</a
+          >
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- Back to Top Button -->
+  <button id="back-to-top" title="Go to top">↑</button>
+
+  {% endblock %} {% block extra_js %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% endblock %}
+</div>

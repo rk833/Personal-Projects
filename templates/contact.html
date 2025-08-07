@@ -1,0 +1,221 @@
+{% extends 'base.html' %} {% block title %}Contact Us - World Hotels{% endblock
+%} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/contactus.css') }}"
+/>
+{% endblock %} {% block content %}
+<!-- Wrap all content in a main container with proper z-index -->
+<div class="main-contact-container">
+  <!-- Contact Section -->
+  <div class="contact-section container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <img
+          src="{{ url_for('static', filename='images/contact.jpg') }}"
+          alt="Contact Background"
+          class="img-fluid rounded"
+        />
+      </div>
+      <div class="col-md-6">
+        <h2 class="contact-title text-center text-md-start fade-target">
+          Contact Us
+        </h2>
+        <div id="form-message" class="alert" style="display: none"></div>
+
+        <form id="contact-form" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name (required)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Your Email (required)</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="subject" class="form-label">Subject (required)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="subject"
+              name="subject"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label"
+              >Your Message (required)</label
+            >
+            <textarea
+              class="form-control"
+              id="message"
+              name="message"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="contact-info fade-target">
+    <div class="contact-row">
+      <div class="urgent-inquiry">
+        <p>If this is an urgent inquiry, please WhatsApp or Phone:</p>
+        <p>
+          <img
+            src="{{ url_for('static', filename='images/tel.png') }}"
+            alt="Phone Icon"
+            class="icon"
+          />
+          <a href="tel:+442091308850">+44 20 9130 8850</a>
+        </p>
+
+        <p>
+          <img
+            src="{{ url_for('static', filename='images/whatsapp.png') }}"
+            alt="WhatsApp Icon"
+            class="icon"
+          />
+          <a href="https://wa.me/442071834750" target="_blank"
+            >+44 20 7183 4750</a
+          >
+        </p>
+
+        <p>
+          <img
+            src="{{ url_for('static', filename='images/plane.png') }}"
+            alt="Plane Icon"
+            class="icon"
+          />
+          <a href="/travel-agent-enquiry" target="_blank"
+            >Travel Agent Enquiry</a
+          >
+        </p>
+      </div>
+
+      <div class="head-office">
+        <h4>Head Office</h4>
+        <p>DYL Enterprise LTD</p>
+        <p>No 21,</p>
+        <p>Usk Road,</p>
+        <p>London</p>
+        <p>CF14 0NN</p>
+        <p>United Kingdom</p>
+        <p><strong>T:</strong> 00 44 7515 869398</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ accordion section -->
+  <div class="faq-suggestion-section mb-4 fade-target">
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Have a Question?</h4>
+          <p class="card-text">
+            Can't find what you're looking for? Submit your question below:
+          </p>
+
+          <form
+            action="{{ url_for('submit_faq_suggestion') }}"
+            method="POST"
+            id="faqSuggestionForm"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <div class="mb-3">
+              <label for="question" class="form-label">Your Question</label>
+              <textarea
+                class="form-control"
+                id="question"
+                name="question"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Submit Question
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="faq-section fade-target">
+    <div class="container">
+      <h3 class="faq-title">Frequently Asked Questions</h3>
+      <div class="accordion" id="faqAccordion">
+        {% for faq in faqs %}
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading{{ loop.index }}">
+            <button
+              class="accordion-button collapsed fade-target"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse{{ loop.index }}"
+              aria-expanded="false"
+              aria-controls="collapse{{ loop.index }}"
+            >
+              {{ faq.question }}
+            </button>
+          </h2>
+          <div
+            id="collapse{{ loop.index }}"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading{{ loop.index }}"
+            data-bs-parent="#faqAccordion"
+          >
+            <div class="accordion-body">{{ faq.answer|safe }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section - Move to bottom -->
+  <div class="map-section">
+    <div class="container">
+      <h3 class="map-title fade-target">Find Us</h3>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.2889612073466!2d-0.12764492345897!3d51.50736067181897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604c7c7eb9be3%3A0x3918653583725b56!2sLondon%2C%20UK!5e0!3m2!1sen!2suk!4v1704555844813!5m2!1sen!2suk"
+          width="100%"
+          height="700"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" title="Go to top">↑</button>
+{% endblock %} {% block extra_js %}
+
+<script src="{{ url_for('static', filename='js/contactus.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+{% endblock %}

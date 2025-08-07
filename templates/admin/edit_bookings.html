@@ -1,0 +1,219 @@
+<!-- templates/admin/edit_bookings.html -->
+
+{% extends "admin/layout.html" %}
+
+{% block title %}Booking #{{ booking.booking_id }}{% endblock %}
+
+{% block content %}
+<!-- Edit Bookings Container -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Booking Details</h1>
+            <p class="mb-0">Booking #{{ booking.booking_id }}</p>
+        </div>
+        <a href="{{ url_for('admin_bookings') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Bookings
+        </a>
+    </div>
+
+    <!-- Booking Details Card -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Booking Information</h6>
+                    <span class="badge bg-{{ booking.status == 'confirmed' and 'success' or 
+                                           booking.status == 'cancelled' and 'danger' or 
+                                           'info' }} px-3 py-2">
+                        {{ booking.status|title }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Hotel Information -->
+                        <div class="col-md-6 mb-4">
+                            <h5 class="font-weight-bold">Hotel Details</h5>
+                            <p class="mb-1"><strong>Hotel:</strong> {{ booking.hotel_name }}</p>
+                            <p class="mb-1"><strong>Address:</strong> {{ booking.hotel_address }}</p>
+                            <p class="mb-0">
+                                <strong>Room:</strong> 
+                                {{ booking.room_number }} ({{ booking.room_type }})
+                            </p>
+                        </div>
+
+                        <!-- Guest Information -->
+                        <div class="col-md-6 mb-4">
+                            <h5 class="font-weight-bold">Guest Details</h5>
+                            <p class="mb-1"><strong>Name:</strong> {{ booking.guest_name }}</p>
+                            <p class="mb-1"><strong>Email:</strong> {{ booking.guest_email }}</p>
+                            <p class="mb-0"><strong>Phone:</strong> {{ booking.guest_phone }}</p>
+                        </div>
+
+                        <!-- Booking Details -->
+                        <div class="col-md-6 mb-4">
+                            <h5 class="font-weight-bold">Stay Details</h5>
+                            <p class="mb-1">
+                                <strong>Check-in:</strong> 
+                                {{ booking.check_in_date.strftime('%Y-%m-%d') }}
+                            </p>
+                            <p class="mb-1">
+                                <strong>Check-out:</strong> 
+                                {{ booking.check_out_date.strftime('%Y-%m-%d') }}
+                            </p>
+                            <p class="mb-1"><strong>Nights:</strong> {{ nights }}</p>
+                            <p class="mb-0">
+                                <strong>Guests:</strong> {{ booking.num_guests }} 
+                                (Max: {{ booking.max_guests }})
+                            </p>
+                        </div>
+
+                        <!-- Payment Details -->
+                        <div class="col-md-6 mb-4">
+                            <h5 class="font-weight-bold">Payment Details</h5>
+                            <p class="mb-1">
+                                <strong>Total Price:</strong> 
+                                £{{ "%.2f"|format(booking.total_price) }}
+                            </p>
+                            <p class="mb-1">
+                                <strong>Price per Night:</strong> 
+                                £{{ "%.2f"|format(price_per_night) }}
+                            </p>
+                            <p class="mb-0">
+                                <strong>Booking Date:</strong> 
+                                {{ booking.booking_date.strftime('%Y-%m-%d %H:%M') }}
+                            </p>
+                        </div>
+
+                        <!-- Room Description -->
+                        <div class="col-12">
+                            <h5 class="font-weight-bold">Room Description</h5>
+                            <p class="mb-0">{{ booking.room_description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions Card -->
+        <div class="col-lg-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Booking Actions</h6>
+                </div>
+                <div class="card-body">
+                    <!-- Status Update Form -->
+                    <form method="POST" action="{{ url_for('admin_update_booking_status', booking_id=booking.booking_id) }}">
+
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Update Status</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="confirmed" 
+                                        {% if booking.status == 'confirmed' %}selected{% endif %}>
+                                    Confirmed
+                                </option>
+                                <option value="cancelled" 
+                                        {% if booking.status == 'cancelled' %}selected{% endif %}>
+                                    Cancelled
+                                </option>
+                                <option value="completed" 
+                                        {% if booking.status == 'completed' %}selected{% endif %}>
+                                    Completed
+                                </option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-save"></i> Update Status
+                        </button>
+                    </form>
+
+                    <hr>
+
+                    <!-- Quick Actions -->
+                    <h6 class="font-weight-bold mb-3">Quick Actions</h6>
+                    <a href="mailto:{{ booking.guest_email }}" class="btn btn-info w-100 mb-2">
+                        <i class="fas fa-envelope"></i> Email Guest
+                    </a>
+                    <a href="{{ url_for('admin_hotel_rooms', hotel_id=booking.hotel_id) }}" 
+                       class="btn btn-secondary w-100">
+                        <i class="fas fa-hotel"></i> View Hotel Rooms
+                    </a>
+                </div>
+            </div>
+
+            <!-- Timeline Card -->
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Booking Timeline</h6>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <!-- Booking Created -->
+                        <div class="timeline-item">
+                            <i class="fas fa-circle text-primary"></i>
+                            <p class="mb-1">Booking Created</p>
+                            <small class="text-muted">
+                                {{ booking.booking_date.strftime('%Y-%m-%d %H:%M') }}
+                            </small>
+                        </div>
+
+                        <!-- Status Changes -->
+                        {% if booking.status == 'cancelled' and booking.cancellation_date %}
+                        <div class="timeline-item">
+                            <i class="fas fa-circle text-danger"></i>
+                            <p class="mb-1">Booking Cancelled</p>
+                            <small class="text-muted">
+                                {{ booking.cancellation_date.strftime('%Y-%m-%d %H:%M') }}
+                            </small>
+                        </div>
+                        {% endif %}
+
+                        {% if booking.status == 'completed' %}
+                        <div class="timeline-item">
+                            <i class="fas fa-circle text-success"></i>
+                            <p class="mb-1">Stay Completed</p>
+                            <small class="text-muted">
+                                {{ booking.check_out_date.strftime('%Y-%m-%d') }}
+                            </small>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.timeline-item:not(:last-child):before {
+    content: '';
+    position: absolute;
+    left: -23px;
+    top: 20px;
+    height: 100%;
+    width: 2px;
+    background: #e3e6f0;
+}
+
+.timeline-item i {
+    position: absolute;
+    left: -30px;
+    top: 4px;
+    font-size: 0.5rem;
+}
+</style>
+{% endblock %}

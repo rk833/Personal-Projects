@@ -1,0 +1,118 @@
+
+{% extends "base.html" %} {% block title %}Terms and Conditions - World Hotels{%
+endblock %} 
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/terms.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Terms and Conditions Container -->
+<div class="terms-container">
+  <div class="terms-header">
+    <h1>Terms and Conditions</h1>
+    <p class="last-updated ">Last Updated: January 21, 2024</p>
+  </div>
+  <!-- Terms Content -->
+  <div class="terms-content">
+    <section>
+      <h2>1. Introduction</h2>
+      <p>
+        Welcome to World Hotels. These terms and conditions outline the rules
+        and regulations for the use of our website and services across our
+        hotels in the United Kingdom.
+      </p>
+    </section>
+
+    <section>
+      <h2>2. Room Types and Occupancy</h2>
+      <ul>
+        <li>Standard Room: Single occupancy only</li>
+        <li>
+          Double Room: Maximum 2 guests (20% higher than standard room rate plus
+          10% surcharge for second guest)
+        </li>
+        <li>
+          Family Room: Maximum 4 guests (50% higher than standard room rate)
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. Seasonal Rates</h2>
+      <p>Peak season rates apply during:</p>
+      <ul>
+        <li>April to August (inclusive)</li>
+        <li>November to December (inclusive)</li>
+      </ul>
+      <p>Off-peak rates apply during all other months.</p>
+    </section>
+
+    <section>
+      <h2>4. Booking and Stay Duration</h2>
+      <ul>
+        <li>Bookings can be made up to 3 months in advance</li>
+        <li>Maximum stay duration is 30 days per booking</li>
+        <li>For stays longer than 30 days, separate bookings are required</li>
+        <li>All bookings are subject to room availability</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Advance Booking Discounts</h2>
+      <p>The following discounts apply based on advance booking period:</p>
+      <ul>
+        <li>30% discount: 80-90 days in advance</li>
+        <li>20% discount: 60-79 days in advance</li>
+        <li>10% discount: 45-59 days in advance</li>
+        <li>No discount: Less than 45 days in advance</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. Cancellation Policy</h2>
+      <p>
+        Cancellation charges are calculated based on the time before check-in
+        date:
+      </p>
+      <ul>
+        <li>More than 60 days: No cancellation charge</li>
+        <li>30-60 days: 50% of total booking price</li>
+        <li>Less than 30 days: 100% of total booking price</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>7. Payment and Currency</h2>
+      <p>
+        We accept payments in multiple currencies with real-time conversion
+        rates. Base rates are in GBP (British Pounds).
+      </p>
+    </section>
+
+    <section>
+      <h2>8. Privacy & Data Protection</h2>
+      <p>
+        We are committed to protecting your privacy. Your personal information
+        will be handled in accordance with our Privacy Policy and UK data
+        protection laws.
+      </p>
+    </section>
+
+    <section>
+      <h2>9. Contact Information</h2>
+      <p>For questions about these terms, please contact us at:</p>
+      <ul>
+        <li>Email: khadkaridesha@gmail.com</li>
+        <li>Phone: +44 (0) 123 456 7890</li>
+        <li>Address: 123 Hotel Street, London, UK</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/privacypolicy.js') }}"></script>
+
+{% endblock %}

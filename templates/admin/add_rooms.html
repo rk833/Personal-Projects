@@ -1,0 +1,177 @@
+<!-- templates/admin/add_rooms.html -->
+
+{% extends "admin/layout.html" %}
+
+{% block title %}Add New Room - {{ hotel.hotel_name }}{% endblock %}
+
+{% block content %}
+<!-- Add New Room Container -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-gray-800">Add New Room</h1>
+            <p class="mb-0">{{ hotel.hotel_name }}</p>
+        </div>
+        <a href="{{ url_for('admin_hotel_rooms', hotel_id=hotel.hotel_id) }}" 
+           class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Rooms
+        </a>
+    </div>
+
+    <!-- Add Room Form Card -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="row">
+                    <!-- Basic Information -->
+                    <div class="col-md-6 mb-3">
+                        <label for="room_number" class="form-label">Room Number *</label>
+                        <input type="text" class="form-control" id="room_number" 
+                               name="room_number" required>
+                        <div class="invalid-feedback">
+                            Please provide a room number.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="room_type_id" class="form-label">Room Type *</label>
+                        <select class="form-select" id="room_type_id" name="room_type_id" required>
+                            <option value="">Select Room Type</option>
+                            {% for type in room_types %}
+                            <option value="{{ type.room_type_id }}">
+                                {{ type.type_name }} (Max: {{ type.max_guests }} guests)
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a room type.
+                        </div>
+                    </div>
+
+                    <!-- Pricing -->
+                    <div class="col-md-6 mb-3">
+                        <label for="base_price_peak" class="form-label">Peak Season Price (£) *</label>
+                        <input type="number" class="form-control" id="base_price_peak" 
+                               name="base_price_peak" step="0.01" min="0" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid peak season price.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="base_price_offpeak" class="form-label">Off-Peak Price (£) *</label>
+                        <input type="number" class="form-control" id="base_price_offpeak" 
+                               name="base_price_offpeak" step="0.01" min="0" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid off-peak price.
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-12 mb-3">
+                        <label for="description" class="form-label">Description *</label>
+                        <textarea class="form-control" id="description" name="description" 
+                                  rows="3" required></textarea>
+                        <div class="invalid-feedback">
+                            Please provide a room description.
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="col-md-6 mb-3">
+                        <label for="features" class="form-label">Features</label>
+                        <input type="text" class="form-control" id="features" name="features" 
+                               placeholder="e.g., TV, Mini-bar, Ocean View">
+                        <small class="text-muted">Separate features with commas</small>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="floor_number" class="form-label">Floor Number *</label>
+                        <input type="number" class="form-control" id="floor_number" 
+                               name="floor_number" required>
+                        <div class="invalid-feedback">
+                            Please provide a floor number.
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="col-12 mb-3">
+                        <label for="main_image" class="form-label">Room Image</label>
+                        <input type="file" class="form-control" id="main_image" 
+                               name="main_image" accept="image/*">
+                        <small class="text-muted">
+                            Supported formats: JPG, JPEG, PNG, GIF. Max size: 5MB
+                        </small>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="col-12 mb-3">
+                        <div id="imagePreview" class="mt-2" style="display: none;">
+                            <h6>Image Preview:</h6>
+                            <img src="" alt="Preview" style="max-width: 300px;" class="img-thumbnail">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Add Room
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+
+// Image preview
+document.getElementById('main_image').addEventListener('change', function(e) {
+    const preview = document.getElementById('imagePreview');
+    const previewImg = preview.querySelector('img');
+    const file = e.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        preview.style.display = 'none';
+    }
+});
+
+// Price validation
+document.getElementById('base_price_offpeak').addEventListener('input', function(e) {
+    const peakPrice = parseFloat(document.getElementById('base_price_peak').value);
+    const offpeakPrice = parseFloat(this.value);
+    
+    if (offpeakPrice > peakPrice) {
+        this.setCustomValidity('Off-peak price cannot be higher than peak price');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+</script>
+{% endblock %}

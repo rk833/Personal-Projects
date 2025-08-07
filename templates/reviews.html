@@ -1,0 +1,120 @@
+
+{% extends 'base.html' %} {% block title %}Guest Reviews - World Hotels{%
+endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reviews.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Reviews Container -->
+<div class="reviews-wrapper">
+    <div class="reviews-container">
+        <h1 class="reviews-title mb-4">Guest Reviews</h1>
+
+        <!-- Filter Options -->
+        <div class="filters mb-4">
+            <select id="hotelFilter" class="form-select">
+                <option value="">All Hotels</option>
+                {% for hotel in hotels %}
+                <option value="{{ hotel.hotel_id }}" {% if selected_hotel == hotel.hotel_id %}selected{% endif %}>
+                    {{ hotel.hotel_name }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <select id="ratingFilter" class="form-select mt-2">
+                <option value="">All Ratings</option>
+                {% for i in range(5, 0, -1) %}
+                <option value="{{ i }}" {% if selected_rating == i %}selected{% endif %}>
+                    {{ i }} Star{{ 's' if i > 1 }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Reviews Grid -->
+        <div class="reviews-grid">
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="review-card">
+                        <div class="hotel-name">{{ review.hotel_name }}</div>
+                        <div class="rating">
+                            {% for i in range(review.rating) %}
+                            <i class="fas fa-star text-warning"></i>
+                            {% endfor %}
+                        </div>
+                        <p class="review-text">{{ review.comment }}</p>
+                        <div class="review-meta">
+                            <span class="reviewer">{{ review.first_name }} {{ review.last_name[0] }}.</span>
+                            <span class="date">{{ review.review_date.strftime('%d %B %Y') }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-reviews">
+                    <i class="fas fa-comment-slash"></i>
+                    <p>No reviews found for the selected filters.</p>
+                    <button onclick="window.location.href='{{ url_for('reviews') }}'" class="btn btn-primary">
+                        Show All Reviews
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Pagination -->
+        {% if pages > 1 %}
+        <nav aria-label="Reviews pagination" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% for page in range(1, pages + 1) %}
+                <li class="page-item {% if page == current_page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('reviews', page=page, hotel=selected_hotel, rating=selected_rating) }}">
+                        {{ page }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Javscript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const hotelFilter = document.getElementById('hotelFilter');
+    const ratingFilter = document.getElementById('ratingFilter');
+
+    function updateFilters() {
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+        
+        // Update hotel filter
+        if (hotelFilter.value) {
+            params.set('hotel', hotelFilter.value);
+        } else {
+            params.delete('hotel');
+        }
+        
+        // Update rating filter
+        if (ratingFilter.value) {
+            params.set('rating', ratingFilter.value);
+        } else {
+            params.delete('rating');
+        }
+        
+        // Reset to page 1 when filters change
+        params.set('page', '1');
+        
+        // Redirect to new URL with filters
+        window.location.href = `${url.pathname}?${params.toString()}`;
+    }
+
+    // Add event listeners to filters
+    hotelFilter.addEventListener('change', updateFilters);
+    ratingFilter.addEventListener('change', updateFilters);
+});
+</script>
+
+
+{% endblock %}

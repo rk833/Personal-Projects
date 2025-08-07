@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Booking Receipt</title>
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        padding: 40px;
+        background-color: #fff;
+      }
+
+      /* Header Styles */
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #eee;
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+
+      .header div:last-child {
+        font-size: 24px;
+        color: #666;
+        font-weight: 500;
+      }
+
+      /* Section Styles */
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e9ecef;
+      }
+
+      /* Row Styles */
+      .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .row:last-child {
+        border-bottom: none;
+      }
+
+      .label {
+        font-weight: 600;
+        color: #495057;
+        width: 40%;
+      }
+
+      .row span:last-child {
+        color: #666;
+        width: 60%;
+        text-align: right;
+      }
+
+      /* Price Details Specific Styles */
+      .section:last-of-type .row:last-child {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 2px solid #e9ecef;
+        font-weight: bold;
+      }
+
+      .section:last-of-type .row:last-child .label,
+      .section:last-of-type .row:last-child span:last-child {
+        color: #2c3e50;
+        font-size: 18px;
+      }
+
+      /* Footer Text */
+      small {
+        display: block;
+        margin-top: 40px;
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        font-style: italic;
+      }
+
+      /* Special Styling for Savings */
+      .row.savings {
+        color: #28a745;
+      }
+
+      .row.savings .label,
+      .row.savings span:last-child {
+        color: #28a745;
+      }
+
+      /* Additional Decorative Elements */
+      .section::before {
+        content: "";
+        display: block;
+        height: 3px;
+        width: 50px;
+        background: linear-gradient(to right, #2c3e50, transparent);
+        margin-bottom: 15px;
+        border-radius: 2px;
+      }
+
+      /* Print-specific styles */
+      @media print {
+        body {
+          padding: 20px;
+          background: white;
+        }
+
+        .section {
+          break-inside: avoid;
+          page-break-inside: avoid;
+          background-color: white;
+          box-shadow: none;
+          border: 1px solid #eee;
+        }
+
+        .header {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Booking Receipt -->
+    <div class="header">
+      <div class="logo">World Hotels</div>
+      <div>Booking Receipt</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Booking Details</div>
+      <div class="row">
+        <span class="label">Booking Reference:</span>
+        <span>#{{ booking.booking_id }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Hotel:</span>
+        <span>{{ booking.hotel_name }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Room Type:</span>
+        <span>{{ booking.type_name }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Check In:</span>
+        <span>{{ booking.check_in_date.strftime('%d %B %Y') }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Check Out:</span>
+        <span>{{ booking.check_out_date.strftime('%d %B %Y') }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Guests:</span>
+        <span
+          >{{ booking.num_guests }} person{{ 's' if booking.num_guests > 1
+          }}</span
+        >
+      </div>
+    </div>
+    <!-- Guest Information -->
+    <div class="section">
+      <div class="section-title">Guest Information</div>
+      <div class="row">
+        <span class="label">Name:</span>
+        <span>{{ booking.guest_name }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Email:</span>
+        <span>{{ booking.guest_email }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Phone:</span>
+        <span>{{ booking.guest_phone }}</span>
+      </div>
+      {% if booking.special_requests %}
+      <div class="row">
+        <span class="label">Special Requests:</span>
+        <span>{{ booking.special_requests }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Price Details -->
+    <div class="section">
+      <div class="section-title">Price Details</div>
+      <div class="row">
+        <span class="label">Total Amount:</span>
+        <span
+          >{{ currency_symbol }}{{ "%.2f"|format(booking.total_price) }}</span
+        >
+      </div>
+      {% if booking.applied_discount > 0 %}
+      <div class="row">
+        <span class="label">Savings:</span>
+        <span
+          >-{{ currency_symbol }}{{ "%.2f"|format(booking.applied_discount)
+          }}</span
+        >
+      </div>
+      {% endif %}
+    </div>
+
+    <div style="margin-top: 40px; text-align: center; color: #666">
+      <small>Thank you for choosing World Hotels</small>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+
+{% extends "base.html" %} {% block title %}Welcome{% endblock %} 
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<body>
+  <!-- Hero Section -->
+  <div class="d-flex flex-column min-vh-100">
+    <section class="hero-section position-relative">
+      <img
+        src="{{ url_for('static', filename='images/hotel2.jpg') }}"
+        alt="Hero Image"
+        class="img-fluid w-100 h-100 position-absolute top-0 start-0"
+        style="object-fit: cover; z-index: -1"
+      />
+
+      <!-- Hero background -->
+      <div class="hero-background">
+        <div class="hero-overlay"></div>
+      </div>
+      <!-- Hero Content -->
+      <div class="hero-content text-center">
+        <h1>World Hotels</h1>
+        <p class="welcome-text">
+          Welcome to WorldHotels. Welcome to a World of Your Own.
+        </p>
+        <p>
+          A world where craftsmanship is celebrated, details are thoughtfully
+          considered, and experiences are immersive.
+        </p>
+        <button class="explore-btn">
+          <a href="{{ url_for('hotels') }}">Explore More</a>
+        </button>
+      </div>
+    </section>
+
+    <section class="featured-hotels mb-5">
+      <div class="container-destination">
+        <h2 class="destinations__title fade-target">Featured Hotels</h2>
+        <div class="destinations__divider fade-target"></div>
+        <p class="destinations__subtitle fade-target">
+          Discover our collection of exceptional hotels.
+        </p>
+        <!-- Slider Container -->
+        <div class="slider-container">
+          <div class="slider" id="destinationSlider">
+            {% for hotel in hotels %}
+            <article class="slide">
+              <div class="slide__category">
+                {% for _ in range(hotel.star_rating) %}
+                <i class="fas fa-star text-warning"></i>
+                {% endfor %}
+              </div>
+              <div class="slide__image fade-target">
+                {% if hotel.main_image %}
+                <img
+                  src="{{ url_for('static', filename=hotel.main_image) }}"
+                  alt="{{ hotel.hotel_name }}"
+                  onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'"
+                />
+                {% else %}
+                <img
+                  src="{{ url_for('static', filename='images/placeholder.jpg') }}"
+                  alt="Hotel placeholder"
+                />
+                {% endif %}
+              </div>
+              <h3 class="slide__title fade-target">{{ hotel.hotel_name }}</h3>
+              <p class="slide__description fade-target">
+                {{ hotel.description[:150] }}...
+              </p>
+              <div class="slide__footer">
+                <small class="slide__location fade-target">
+                  <i class="fas fa-map-marker-alt" fade-target></i> {{
+                  hotel.city_name }}
+                </small>
+                <a
+                  href="{{ url_for('hotels') }}"
+                  class="slide__link fade-target"
+                  >Discover more</a
+                >
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subheading Section for Experience -->
+    <div class="subheading">
+      <div class="subheading-content">
+        <h2 class="fade-target">Experience Something New</h2>
+        <div class="line-divider fade-target"></div>
+        <p class="fade-target">
+          The unknown beckons us, and our imaginations run wild with
+          possibilities
+        </p>
+      </div>
+
+      <!-- Experience new section -->
+      <div class="container py-4 experience-images">
+        <div class="experience" id="discount-div">
+          <img
+            src="{{ url_for('static', filename='images/avancebookingdiscount.jpg') }}"
+            alt="Discount Picture"
+          />
+          <div class="experience-text" id="discount-text">
+            ADVANCE BOOKING DISCOUNT
+          </div>
+        </div>
+
+        <div class="experience" id="parking-div">
+          <img
+            src="{{ url_for('static', filename='images/parkingandstay.jpg') }}"
+            alt="Parking Picture"
+          />
+          <div class="experience-text" id="parking-text">PARKING AND STAY</div>
+        </div>
+
+        <div class="experience" id="plan-div">
+          <img
+            src="{{ url_for('static', filename='images/planandsave.jpg') }}"
+            alt="Plan Picture"
+          />
+          <div class="experience-text" id="plan-text">PLAN AND SAVE</div>
+        </div>
+
+        <div class="experience" id="first-time-div">
+          <img
+            src="{{ url_for('static', filename='images/seasonaldiscounts.jpg') }}"
+            alt="Seasonal Picture"
+          />
+          <div class="experience-text" id="first-time-text">
+            SEASONAL DISCOUNTS
+          </div>
+        </div>
+        <div class="experience" id="first-time-div">
+          <img
+            src="{{ url_for('static', filename='images/Roomfeatures.jpg') }}"
+            alt="Room Feature Picture"
+          />
+          <div class="experience-text" id="first-time-text">ROOM FEATURES</div>
+        </div>
+        <div class="experience" id="members-div">
+          <img
+            src="{{ url_for('static', filename='images/greatservice.jpg') }}"
+            alt="Service Picture"
+          />
+          <div class="experience-text" id="members-text">GREAT SERVICE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter Section (add before the back to top button) -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-content text-center">
+          <h2 class="fade-target">Subscribe to Our Newsletter</h2>
+          <div class="newsletter-divider fade-target"></div>
+          <p class="fade-target">
+            Stay updated with our latest offers and hotel news
+          </p>
+
+          <form
+            id="newsletterForm"
+            class="newsletter-form fade-target"
+            method="POST"
+            action="{{ url_for('subscribe_newsletter') }}"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <div class="input-group">
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter your email address"
+                required
+              />
+              <button type="submit" class="btn btn-subscribe">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Go to top">↑</button>
+
+    {% endblock %} {% block extra_js %}
+
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    {% endblock %}
+  </div>
+</body>

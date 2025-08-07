@@ -1,0 +1,465 @@
+<!-- templates/admin/reports.html -->
+
+{% extends "admin/layout.html" %}
+
+{% block title %}Analytics & Reports{% endblock %}
+
+{% block content %}
+<!-- Reports Container -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Analytics & Reports</h1>
+        <div class="btn-group">
+            <a href="{{ url_for('export_reports_pdf') }}?range={{ date_range }}" class="btn btn-success">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </a>
+            <a href="{{ url_for('export_reports_excel') }}?range={{ date_range }}" class="btn btn-primary">
+                <i class="fas fa-file-excel"></i> Export Excel
+            </a>
+        </div>
+    </div>
+
+    <!-- Date Range Selector -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3 align-items-center">
+                <div class="col-md-4">
+                    <select class="form-select" name="range" onchange="this.form.submit()">
+                        <option value="7" {% if date_range == '7' %}selected{% endif %}>Last 7 Days</option>
+                        <option value="30" {% if date_range == '30' %}selected{% endif %}>Last 30 Days</option>
+                        <option value="90" {% if date_range == '90' %}selected{% endif %}>Last 90 Days</option>
+                        <option value="365" {% if date_range == '365' %}selected{% endif %}>Last Year</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Revenue Overview Row -->
+    <div class="row">
+        <!-- Total Revenue Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Revenue
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                £{{ "%.2f"|format(chart_data.revenues|sum) }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-pound-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Bookings Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Bookings
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {{ chart_data.booking_counts|sum }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Booking Value Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Average Booking Value
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {% if chart_data.booking_counts|sum > 0 %}
+                                    £{{ "%.2f"|format(chart_data.revenues|sum / chart_data.booking_counts|sum) }}
+                                {% else %}
+                                    £0.00
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calculator fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Average Revenue Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Daily Average Revenue
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                {% if chart_data.dates|length > 0 %}
+                                    £{{ "%.2f"|format(chart_data.revenues|sum / chart_data.dates|length) }}
+                                {% else %}
+                                    £0.00
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row">
+        <!-- Revenue Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Revenue Overview</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Type Distribution -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Room Type Distribution</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie pt-4">
+                        <canvas id="roomTypeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Hotels Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Top Performing Hotels</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Hotel</th>
+                            <th>Bookings</th>
+                            <th>Revenue</th>
+                            <th>Avg. Booking Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if hotel_performance %}
+                            {% for hotel in hotel_performance %}
+                            <tr>
+                                <td>{{ hotel.hotel_name }}</td>
+                                <td>{{ hotel.booking_count }}</td>
+                                <td>£{{ "%.2f"|format(hotel.revenue) }}</td>
+                                <td>£{{ "%.2f"|format(hotel.revenue / hotel.booking_count) }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr><td colspan="4">No data available</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monthly Sales Analysis -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Monthly Sales Analysis</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Bookings</th>
+                            <th>Revenue</th>
+                            <th>Unique Customers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for month in monthly_sales %}
+                        <tr>
+                            <td>{{ month.month }}</td>
+                            <td>{{ month.booking_count }}</td>
+                            <td>£{{ "%.2f"|format(month.revenue) }}</td>
+                            <td>{{ month.unique_customers }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hotel Performance Analysis -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Hotel Performance Analysis</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Hotel</th>
+                            <th>Revenue</th>
+                            <th>Bookings</th>
+                            <th>Occupancy Rate</th>
+                            <th>Profit/Loss</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if hotel_performance %}
+                            {% for hotel in hotel_performance %}
+                            <tr>
+                                <td>{{ hotel.hotel_name }}</td>
+                                <td>£{{ "%.2f"|format(hotel.revenue) }}</td>
+                                <td>{{ hotel.booking_count }}</td>
+                                <td>{{ "%.1f"|format(hotel.occupied_days / (hotel.total_rooms * 30) * 100) }}%</td>
+                                <td class="{{ 'text-success' if hotel.estimated_profit > 0 else 'text-danger' }}">
+                                    £{{ "%.2f"|format(hotel.estimated_profit) }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr><td colspan="4">No data available</td></tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Customers Analysis -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Top Customers</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Total Bookings</th>
+                            <th>Total Spent</th>
+                            <th>Avg. Booking Value</th>
+                            <th>Last Booking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for customer in top_customers %}
+                        <tr>
+                            <td>{{ customer.customer_name }}</td>
+                            <td>{{ customer.total_bookings }}</td>
+                            <td>£{{ "%.2f"|format(customer.total_spent) }}</td>
+                            <td>£{{ "%.2f"|format(customer.avg_booking_value) }}</td>
+                            <td>{{ customer.last_booking_date.strftime('%Y-%m-%d') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Revenue Chart
+const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+new Chart(revenueCtx, {
+    type: 'line',
+    data: {
+        labels: {{ chart_data.dates|tojson }},
+        datasets: [{
+            label: 'Revenue',
+            data: {{ chart_data.revenues|tojson }},
+            borderColor: 'rgb(78, 115, 223)',
+            tension: 0.1,
+            yAxisID: 'y'
+        }, {
+            label: 'Bookings',
+            data: {{ chart_data.booking_counts|tojson }},
+            borderColor: 'rgb(28, 200, 138)',
+            tension: 0.1,
+            yAxisID: 'y1'
+        }]
+    },
+    options: {
+        responsive: true,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Revenue (£)'
+                }
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                title: {
+                    display: true,
+                    text: 'Number of Bookings'
+                },
+                grid: {
+                    drawOnChartArea: false
+                }
+            }
+        }
+    }
+});
+
+// Room Type Distribution Chart
+const roomTypeCtx = document.getElementById('roomTypeChart').getContext('2d');
+new Chart(roomTypeCtx, {
+    type: 'pie',
+    data: {
+        labels: {{ room_type_stats|map(attribute='type_name')|list|tojson }},
+        datasets: [{
+            data: {{ room_type_stats|map(attribute='booking_count')|list|tojson }},
+            backgroundColor: [
+                'rgb(78, 115, 223)',
+                'rgb(28, 200, 138)',
+                'rgb(246, 194, 62)',
+                'rgb(231, 74, 59)',
+                'rgb(54, 185, 204)'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+// Export functions
+function exportToPDF() {
+    const dateRange = document.querySelector('select[name="range"]').value;
+    fetch(`/admin/reports/export-pdf?range=${dateRange}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/pdf'
+        }
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `hotel_reports_${new Date().toISOString().split('T')[0]}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to download PDF report');
+    });
+}
+
+function exportToExcel() {
+    const dateRange = document.querySelector('select[name="range"]').value;
+    fetch(`/admin/reports/export-excel?range=${dateRange}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        }
+    })
+    .then(response => response.blob())
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `hotel_reports_${new Date().toISOString().split('T')[0]}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to download Excel report');
+    });
+}
+</script>
+{% endblock %}
+
+{% block styles %}
+<style>
+.chart-area {
+    position: relative;
+    height: 20rem;
+    width: 100%;
+}
+
+.chart-pie {
+    position: relative;
+    height: 15rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .chart-area {
+        height: 15rem;
+    }
+    .chart-pie {
+        height: 12rem;
+    }
+}
+</style>
+{% endblock %}

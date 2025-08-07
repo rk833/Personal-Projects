@@ -1,0 +1,162 @@
+{% extends "admin/layout.html" %} {% block content %}
+<!-- FAQ Suggestions Container -->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">FAQ Suggestions</h5>
+        </div>
+        <div class="card-body">
+          {% if suggestions %}
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Submitted By</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for suggestion in suggestions %}
+                <tr>
+                  <td>{{ suggestion.question }}</td>
+                  <td>{{ suggestion.username }}</td>
+                  <td>
+                    {{ suggestion.created_at.strftime('%Y-%m-%d %H:%M') if
+                    suggestion.created_at else 'N/A' }}
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-sm btn-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#approveSuggestionModal{{ suggestion.id }}"
+                    >
+                      Approve
+                    </button>
+                    <form
+                      action="{{ url_for('reject_faq_suggestion', suggestion_id=suggestion.id) }}"
+                      method="POST"
+                      class="d-inline"
+                    >
+                      <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                      />
+                      <button type="submit" class="btn btn-sm btn-danger">
+                        Reject
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+
+                <!-- Approve Modal -->
+                <div
+                  class="modal fade"
+                  id="approveSuggestionModal{{ suggestion.id }}"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Approve FAQ Suggestion</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                        ></button>
+                      </div>
+                      <form
+                        action="{{ url_for('approve_faq_suggestion', suggestion_id=suggestion.id) }}"
+                        method="POST"
+                      >
+                        <input
+                          type="hidden"
+                          name="csrf_token"
+                          value="{{ csrf_token() }}"
+                        />
+                        <div class="modal-body">
+                          <div class="mb-3">
+                            <label class="form-label">Question</label>
+                            <p class="form-control-static">
+                              {{ suggestion.question }}
+                            </p>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Answer</label>
+                            <textarea
+                              class="form-control"
+                              name="answer"
+                              rows="4"
+                              required
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button type="submit" class="btn btn-success">
+                            Approve & Add
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <p class="text-center">No pending FAQ suggestions.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<!-- JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const faqForm = document.getElementById("faqSuggestionForm");
+    if (faqForm) {
+      faqForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(faqForm);
+        fetch("/submit-faq-suggestion", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Thank you! Your question has been submitted for review.");
+              faqForm.reset();
+            } else {
+              alert(
+                data.message || "Error submitting question. Please try again."
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error submitting question. Please try again.");
+          });
+      });
+    }
+  });
+</script>

@@ -1,0 +1,42 @@
+
+{% extends "base.html" %} {% block title %}Unsubscribe from Newsletter{%
+endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/unsubscribe.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Unsubscribe Container -->
+<div class="unsubscribe-wrapper">
+  <div class="unsubscribe-container">
+    <div class="unsubscribe-content">
+      {% if status == 'success' %}
+      <div class="unsubscribe-icon success">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      {% elif status == 'error' %}
+      <div class="unsubscribe-icon error">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      {% else %}
+      <div class="unsubscribe-icon info">
+        <i class="fas fa-info-circle"></i>
+      </div>
+      {% endif %}
+
+      <h1>{{ message }}</h1>
+
+      {% if status == 'success' %}
+      <p>We hope to see you again soon!</p>
+      {% endif %}
+
+      <div class="unsubscribe-actions">
+        <a href="{{ url_for('index') }}" class="btn btn-primary"
+          >Return to Homepage</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

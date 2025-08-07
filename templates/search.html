@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+
+{% block title %}Search Rooms{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <div class="search-header">
+        <h1>FIND YOUR PERFECT STAY</h1>
+        <h2 class="fade-target">Search for Available rooms</h2>
+        <p class="fade-target">Find Your Perfect Room: Explore Our Available Spaces and Book Your Ideal Stay Today!</p>
+    </div>
+
+    <div class="search-form-container">
+        <form method="GET" action="{{ url_for('search') }}" class="search-form">
+            <div class="search-group">
+                <label>DESTINATION</label>
+                <select name="city" class="search-input">
+                    <option value="">All Cities</option>
+                    {% for city in cities %}
+                    <option value="{{ city.city_id }}" {% if selected_city|string==city.city_id|string %}selected{% endif %}>
+                        {{ city.city_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="search-group">
+                <label>CHECK IN</label>
+                <input type="date" name="check_in" class="search-input" value="{{ check_in }}" required min="{{ today }}">
+                <small>Book up to 3 months in advance</small>
+            </div>
+
+            <div class="search-group">
+                <label>CHECK OUT</label>
+                <input type="date" name="check_out" class="search-input" value="{{ check_out }}" required>
+                <small>Maximum stay: 30 days</small>
+            </div>
+
+            <div class="search-group">
+                <label>GUESTS</label>
+                <select name="guests" class="search-input">
+                    {% for i in range(1, 5) %}
+                    <option value="{{ i }}" {% if guests|string==i|string %}selected{% endif %}>
+                        {{ i }} Guest{{ 's' if i > 1 }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="search-group">
+                <label>CURRENCY</label>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="currencyDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ currency_symbol }} {{ currency }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="currencyDropdown">
+                        {% for code, symbol in currencies.items() %}
+                        <li>
+                            <a class="dropdown-item {% if currency == code %}active{% endif %}"
+                                href="{{ url_for('set_currency', currency=code) }}">
+                                {{ symbol }} {{ code }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <button type="submit" class="search-button">SEARCH ROOMS</button>
+        </form>
+    </div>
+</div>
+
+{% if rooms %}
+<div class="room-details py-5 fade-target">
+    <div class="container">
+        <div class="row gy-4">
+            {% for room in rooms %}
+            <div class="col-md-4">
+                <div class="card-rooms-card">
+                    {% if room.main_image %}
+                        <img src="{{ url_for('static', filename=room.main_image) }}" 
+                             class="card-img-top" 
+                             alt="{{ room.type_name }}"
+                             onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" 
+                             class="card-img-top" 
+                             alt="Room placeholder">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ room.hotel_name }} - {{ room.type_name }} Room</h5>
+                        
+                        <!-- Room Features -->
+                        <div class="features mb-3">
+                            {% for feature in room.features.split(',') %}
+                            <span class="badge bg-secondary me-1">
+                                <i class="fas fa-{{ feature_icons.get(feature.strip(), 'check') }}"></i>
+                                {{ feature.strip() }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Price Breakdown -->
+                        <div class="price-breakdown">
+                            {% if room.discount_amount > 0 %}
+                            <p class="mb-1">
+                                <span class="text-muted text-decoration-line-through">
+                                    {{ currency_symbol }}{{ "%.2f"|format(room.original_price) }}
+                                </span>
+                                <span class="badge bg-success ms-2">
+                                    Save {{ currency_symbol }}{{ "%.2f"|format(room.discount_amount) }}
+                                </span>
+                            </p>
+                            {% endif %}
+                            <h4 class="text-primary">
+                                {{ currency_symbol }}{{ "%.2f"|format(room.final_price) }}
+                                <small class="text-muted">per night</small>
+                            </h4>
+                        </div>
+                        
+                        <!-- Book Now Button -->
+                        <a href="{{ url_for('book_room', room_id=room.room_id, 
+                                    check_in=check_in, 
+                                    check_out=check_out, 
+                                    guests=guests) }}" 
+                        class="btn btn-primary mt-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        <!-- Previous button -->
+        <li class="page-item {% if page == 1 %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('search', page=page-1, city=selected_city, check_in=check_in, check_out=check_out, guests=guests) }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        
+        <!-- Page numbers -->
+        {% for p in range(1, total_pages + 1) %}
+        <li class="page-item {% if p == page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('search', page=p, city=selected_city, check_in=check_in, check_out=check_out, guests=guests) }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+        
+        <!-- Next button -->
+        <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('search', page=page+1, city=selected_city, check_in=check_in, check_out=check_out, guests=guests) }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Results count -->
+<div class="text-center mt-3">
+    <p class="text-muted">
+        {% set start = (page-1) * per_page + 1 %}
+        {% set end = page * per_page %}
+        {% if end > total_rooms %}
+            {% set end = total_rooms %}
+        {% endif %}
+        Showing {{ start }}-{{ end }} of {{ total_rooms }} results
+    </p>
+</div>
+{% elif check_in and check_out %}
+<div class="alert alert-info">
+    No rooms available for the selected criteria. Please try different dates or location.
+</div>
+{% endif %}
+
+<!-- Recommended Hotels Section -->
+<section class="featured-hotels mb-5">
+    <div class="container-destination">
+        <h2 class="destinations__title fade-target">See Hotels in {{ city_name }}</h2>
+        <div class="destinations__divider"></div>
+        <p class="destinations__subtitle">
+            Explore the best hotels in {{ city_name }}
+        </p>
+
+        <div class="slider-container">
+            <div class="slider" id="destinationSlider">
+                {% for hotel in recommended_hotels %}
+                <article class="slide">
+                    <div class="slide__category">
+                        {% for _ in range(hotel.star_rating) %}
+                        <i class="fas fa-star text-warning"></i>
+                        {% endfor %}
+                    </div>
+                    <div class="slide__image">
+                        {% if hotel.main_image %}
+                        <img src="{{ url_for('static', filename=hotel.main_image) }}"
+                             alt="{{ hotel.hotel_name }}"
+                             onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'"
+                        />
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/placeholder.jpg') }}"
+                             alt="Hotel placeholder"
+                        />
+                        {% endif %}
+                    </div>
+                    <h3 class="slide__title">{{ hotel.hotel_name }}</h3>
+                    <p class="slide__description">
+                        {{ hotel.description[:150] }}...
+                    </p>
+                    <div class="slide__footer">
+                        <small class="slide__location">
+                            <i class="fas fa-map-marker-alt"></i> {{ hotel.city_name }}
+                        </small>
+                        <a href="{{ url_for('hotel_detail', hotel_id=hotel.hotel_id) }}"
+                           class="slide__link">Discover more</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h6 class="subtitle fade-target">WHY CHOOSE US</h6>
+            <h2 class="main-title fade-target">The Perfect Choice for Your Stay</h2>
+            <hr class="title-underline">
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="fade-target">Best Price Guarantee</h3>
+                    <p class="fade-target">Find a lower price? We'll match it and give you an additional 10% off.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="fade-target">24/7 Support</h3>
+                    <p class="fade-target">Our dedicated team is available round the clock to assist you.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="fade-target">Secure Booking</h3>
+                    <p class="fade-target">Your payments and personal information are protected with us.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="fade-target">Special Offers</h3>
+                    <p class="fade-target">Exclusive deals and packages for our valued customers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Room facilities -->
+<section class="room-facilities py-5">
+    <div class="container">
+        <!-- Title -->
+        <div class="text-center mb-4">
+            <h6 class="subtitle fade-target">BEST SERVICES FROM World Hotels</h6>
+            <h2 class="main-title fade-target">Room Facilities</h2>
+            <hr class="title-underline">
+        </div>
+
+        <!-- Facilities Grid -->
+        <div class="row justify-content-center fade-target">
+            <div class="col-md-4">
+                <ul class="facility-list ">
+                    <li><span class="icon">🛏️</span> Pool</li>
+                    <li><span class="icon">🛏️</span> Large Balcony with 2 sunbeds</li>
+                    <li><span class="icon">🛏️</span> Outdoor dining area</li>
+                    <li><span class="icon">🛏️</span> In-room Tea/coffee making facility</li>
+                    <li><span class="icon">🛏️</span> King Size Luxury Beds</li>
+                    
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="facility-list fade-target">
+                    
+                    <li><span class="icon">🛏️</span> Private Ensuite bathroom</li>
+                    <li><span class="icon">🛏️</span> Large balcony</li>
+                    <li><span class="icon">🛏️</span> Free Wi-Fi</li>
+                    <li><span class="icon">🛏️</span> 72 inch LED TV</li>
+                    <li><span class="icon">🛏️</span> Writing Table, Wardrobe, and Luggage Rack</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="facility-list fade-target">
+                    <li><span class="icon">🛏️</span> Fan on request</li>
+                    <li><span class="icon">🛏️</span> Air conditioning</li>
+                    <li><span class="icon">🛏️</span> Mini Fridge</li>
+                    <li><span class="icon">🛏️</span> Umbrella on request</li>
+                    <li><span class="icon">🛏️</span> Iron and Ironing Board on request</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+         <!-- Back to Top Button -->
+         <button id="back-to-top" title="Go to top">↑</button>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

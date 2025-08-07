@@ -1,0 +1,197 @@
+
+{% extends "base.html" %} 
+{% block title %}Book Room{% endblock %} 
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/book_room.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Book Room -->
+<div class="container content-spacing">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h2 class="card-title mb-0">
+              {{ room.hotel_name }} - {{ room.type_name }}
+            </h2>
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                      id="currencyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ currency_symbol }} {{ currency }}
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="currencyDropdown">
+                {% for code, symbol in currencies.items() %}
+                <li>
+                  <a class="dropdown-item {% if currency == code %}active{% endif %}"
+                     href="{{ url_for('set_currency', currency=code, next=request.path) }}">
+                    {{ symbol }} {{ code }}
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <!-- Room Images -->
+          <div class="room-images mb-4">
+            {% if room.main_image %}
+                <img src="{{ url_for('static', filename=room.main_image) }}"
+                     class="img-fluid rounded" 
+                     alt="{{ room.type_name }}"
+                     onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/placeholder.jpg') }}"
+                     class="img-fluid rounded" 
+                     alt="Room placeholder">
+            {% endif %}
+        </div>
+
+          <div class="room-details">
+            <h4>Room Details</h4>
+            <p>{{ room.description }}</p>
+            
+            <div class="features mb-3">
+              <h5>Features:</h5>
+              <div class="d-flex flex-wrap gap-2">
+                {% for feature in room.features.split(',') %}
+                <span class="badge bg-secondary">
+                  <i class="fas fa-{{ feature_icons.get(feature.strip(), 'check') }} me-1"></i>
+                  {{ feature.strip() }}
+                </span>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="capacity">
+              <h5>Capacity:</h5>
+              <p class="mb-0">
+                <i class="fas fa-user me-2"></i>
+                Maximum {{ room.max_guests }} guests
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Book Your Stay</h3>
+          <form action="{{ url_for('book_room', room_id=room.room_id) }}" 
+                method="POST" id="bookingForm">
+            {{ form.csrf_token }}
+            
+            <div class="mb-3">
+              <label class="form-label">Check In Date</label>
+              <input type="date" name="check_in" class="form-control" required
+                     min="{{ today }}" max="{{ max_date }}"
+                     value="{{ form.check_in.data if form.check_in.data }}" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Check Out Date</label>
+              <input type="date" name="check_out" class="form-control" required
+                     value="{{ form.check_out.data if form.check_out.data }}" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Number of Guests</label>
+              <select name="num_guests" class="form-select" required>
+                {% for i in range(1, room.max_guests + 1) %}
+                <option value="{{ i }}" 
+                        {% if form.num_guests.data|string == i|string %}selected{% endif %}>
+                  {{ i }} Guest{{ 's' if i > 1 else '' }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="pricing-info mb-3">
+              <h5>Pricing Information</h5>
+              <div class="card bg-light">
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between mb-2">
+                          <span>Base price per night:</span>
+                          <span>{{ currency_symbol }}{{ "%.2f"|format(room.base_price_per_night if room.base_price_per_night is defined else room.converted_price) }}</span>
+                      </div>
+          
+                      {% if room.num_nights is defined %}
+                          <div class="d-flex justify-content-between mb-2">
+                              <span>Number of nights:</span>
+                              <span>{{ room.num_nights }}</span>
+                          </div>
+          
+                          <div class="d-flex justify-content-between mb-2">
+                              <span>Total base price:</span>
+                              <span>{{ currency_symbol }}{{ "%.2f"|format(room.total_base_price) }}</span>
+                          </div>
+          
+                          {% if room.discount_rate > 0 %}
+                              <div class="alert alert-success py-1 mb-2">
+                                  <small>{{ room.discount_rate }}% advance booking discount applied!</small>
+                              </div>
+                              <div class="d-flex justify-content-between text-success">
+                                  <span>Discount amount:</span>
+                                  <span>-{{ currency_symbol }}{{ "%.2f"|format(room.discount_amount) }}</span>
+                              </div>
+                              <div class="d-flex justify-content-between fw-bold mt-2">
+                                  <span>Final price:</span>
+                                  <span>{{ currency_symbol }}{{ "%.2f"|format(room.final_price) }}</span>
+                              </div>
+                          {% endif %}
+                      {% else %}
+                          <small class="text-muted">
+                              Select dates to see total price and available discounts
+                          </small>
+                      {% endif %}
+                  </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="fas fa-calendar-check me-2"></i>
+              Confirm Booking
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Policies Popup -->
+<div id="policiesPopup" class="popup-container">
+  <div class="popup">
+      <button class="close-popup" id="closePopup">&times;</button>
+      <h5 class="popup-title">Exclusive Offers</h5>
+      <div class="popup-content">
+          <div class="policy">
+              <h6>Early Booking Discount</h6>
+              <ul>
+                  <li>30% off for bookings made between 80 and 90 days  in advance</li>
+                  <li>20% off for bookings made between 60 and 79 days  in advance</li>
+                  <li>10% off for bookings made between 45 and 59 days days in advance</li>
+              </ul>
+          </div>
+          <div class="policy">
+              <h6>Cancellation Policy</h6>
+              <ul>
+                  <li>Free cancellation if canceled 60+ days before check-in</li>
+                  <li>50% charge for cancellations made 30-60 days before check-in</li>
+                  <li>100% charge for cancellations within 30 days of check-in</li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+         <!-- Back to Top Button -->
+         <button id="back-to-top" title="Go to top">↑</button>
+
+{% endblock %} {% block extra_js %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/book_room.js') }}"></script>
+{% endblock %}

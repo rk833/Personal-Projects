@@ -1,0 +1,352 @@
+{% extends 'base.html' %} {% block title %}Cookie Policy - World Hotels{%
+endblock %} {% block extra_css %}
+<style>
+  .legal-page {
+    background-color: #fff;
+    padding-top: 0;
+  }
+
+  .hero-section {
+    background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(52, 73, 94, 0.8)),
+      url("{{ url_for('static', filename='images/destination-hero.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    margin-top: -76px;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    color: #ecf0f1;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .legal-content {
+    padding: 4rem 0;
+  }
+
+  .content-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
+  }
+
+  .content-section h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .content-section h3 {
+    color: #e74c3c;
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+  }
+
+  .content-section p {
+    color: #34495e;
+    line-height: 1.6;
+  }
+
+  .cookie-controls {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .cookie-controls .btn-primary {
+    background-color: #e74c3c;
+    border: none;
+    padding: 0.75rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cookie-controls .btn-primary:hover {
+    background-color: #c0392b;
+  }
+
+  /* Modal Styles */
+  .modal {
+    background-color: rgba(44, 62, 80, 0.8);
+  }
+
+  .modal-content {
+    border-radius: 0;
+    border: none;
+  }
+
+  .modal-header {
+    background: linear-gradient(to right, #2c3e50, #34495e);
+    color: #ecf0f1;
+    border: none;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+  }
+
+  .form-group input[type="checkbox"] {
+    margin-right: 0.75rem;
+  }
+
+  .form-text {
+    color: #7f8c8d;
+    margin-left: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      height: 200px;
+      margin-top: -56px;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+
+    .legal-content {
+      padding: 2rem 1rem;
+    }
+
+    @media (min-width: 992px) {
+      .hero-section {
+        min-height: 300px;
+      }
+    }
+  }
+
+  @media (max-width: 991px) {
+    .hero-section {
+      margin-top: 0; /* Remove negative margin for tablets and below */
+      padding-top: 100px; /* Add padding to account for fixed header */
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hero-section {
+      padding-top: 80px; /* Slightly less padding for mobile */
+    }
+  }
+</style>
+{% endblock %} {% block content %}
+<!-- Hero Section -->
+<div class="legal-page">
+  <div class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Cookie Policy</h1>
+        <p>Last updated: {{ now.strftime('%B %d, %Y') }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Content -->
+  <div class="legal-content">
+    <div class="content-section">
+      <h2>What Are Cookies</h2>
+      <p>
+        Cookies are small text files that are stored on your computer or mobile
+        device when you visit our website. They help us provide you with a
+        better experience by remembering your preferences, analyzing how our
+        website is used, and personalizing content.
+      </p>
+    </div>
+
+    <!-- Types of Cookies -->
+    <div class="content-section">
+      <h2>Types of Cookies We Use</h2>
+      <h3>Essential Cookies</h3>
+      <p>
+        These cookies are necessary for the website to function properly. They
+        enable core functionality such as security, network management, and
+        accessibility.
+      </p>
+
+      <h3>Analytics Cookies</h3>
+      <p>
+        We use analytics cookies to understand how visitors interact with our
+        website, helping us improve our services.
+      </p>
+
+      <h3>Functional Cookies</h3>
+      <p>
+        These cookies enable enhanced functionality and personalization, such as
+        remembering your preferences.
+      </p>
+
+      <h3>Marketing Cookies</h3>
+      <p>
+        These cookies track your online activity to help advertisers deliver
+        more relevant advertising or to limit how many times you see an ad.
+      </p>
+    </div>
+
+    <!-- Managing Cookies -->
+    <div class="content-section">
+      <h2>Managing Cookies</h2>
+      <p>
+        You can control and/or delete cookies as you wish. You can delete all
+        cookies that are already on your computer and you can set most browsers
+        to prevent them from being placed.
+      </p>
+      <div class="cookie-controls">
+        <button class="btn btn-primary" onclick="openCookieSettings()">
+          Cookie Settings
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Settings Modal -->
+<div id="cookieSettingsModal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Cookie Settings</h2>
+        <button type="button" class="close" onclick="closeCookieSettings()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Manage your cookie preferences below:</p>
+        <form id="cookiePreferencesForm">
+          {{ csrf_token }}
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="essential" checked disabled />
+              Essential Cookies (Required)
+            </label>
+            <small class="form-text"
+              >These cookies are necessary for the website to function
+              properly.</small
+            >
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="analytics" {% if
+              cookie_preferences.analytics == 'true' %}checked{% endif %}>
+              Analytics Cookies
+            </label>
+            <small class="form-text"
+              >Help us improve our website by collecting anonymous usage
+              data.</small
+            >
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="functional" {% if
+              cookie_preferences.functional == 'true' %}checked{% endif %}>
+              Functional Cookies
+            </label>
+            <small class="form-text"
+              >Enable enhanced functionality and personalization.</small
+            >
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="marketing" {% if
+              cookie_preferences.marketing == 'true' %}checked{% endif %}>
+              Marketing Cookies
+            </label>
+            <small class="form-text"
+              >Help deliver more relevant advertising content.</small
+            >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="closeCookieSettings()"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="saveCookiePreferences()"
+        >
+          Save Preferences
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--JavaScript -->
+<script>
+  function openCookieSettings() {
+    document.getElementById("cookieSettingsModal").style.display = "block";
+  }
+
+  function closeCookieSettings() {
+    document.getElementById("cookieSettingsModal").style.display = "none";
+  }
+
+  async function saveCookiePreferences() {
+    const form = document.getElementById("cookiePreferencesForm");
+    const preferences = {
+      essential: true,
+      analytics: form.elements["analytics"].checked,
+      functional: form.elements["functional"].checked,
+      marketing: form.elements["marketing"].checked,
+    };
+
+    try {
+      const response = await fetch("/save-cookie-preferences", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token() }}",
+        },
+        body: JSON.stringify(preferences),
+        credentials: "same-origin",
+      });
+
+      if (response.ok) {
+        closeCookieSettings();
+        window.location.href =
+          window.location.pathname + "?message=preferences_saved";
+      } else {
+        throw new Error("Failed to save preferences");
+      }
+    } catch (error) {
+      console.error("Error saving preferences:", error);
+      window.location.href =
+        window.location.pathname + "?message=preferences_error";
+    }
+  }
+
+  // Close modal when clicking outside
+  window.onclick = function (event) {
+    const modal = document.getElementById("cookieSettingsModal");
+    if (event.target == modal) {
+      closeCookieSettings();
+    }
+  };
+</script>
+{% endblock %} {% block extra_js %}
+<script src="{{ url_for('static', filename='js/cookie-manager.js') }}"></script>
+{% endblock %}
